@@ -18,5 +18,5 @@ interface IMethod
      * @param Container 依存コンテナ
      * @param ReflectionMethod リフレクションメソッドオブジェクト
      */
-    public function onMethodInject(IAnnotatable &$instance, Container $container, \ReflectionMethod $method);
+    public function onMethodInject(IAnnotatable $instance, Container $container, \ReflectionMethod $method);
 }

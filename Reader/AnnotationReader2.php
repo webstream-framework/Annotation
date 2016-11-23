@@ -108,7 +108,7 @@ class AnnotationReader
      * @param string アノテーションクラスパス
      * @param Container アノテーションクラス依存コンテナ
      */
-    public function readable(string $classpath, Container $container)
+    public function readable(string $classpath, Container $container = null)
     {
         $this->readableMap[$classpath] = $container;
     }
@@ -133,6 +133,7 @@ class AnnotationReader
 
         while ($refClass !== false) {
             $annotations = $reader->getClassAnnotations($refClass);
+            var_dump($annotations);
 
             // アノテーション定義がなければ次へ
             if (!empty($annotations)) {
@@ -175,13 +176,55 @@ class AnnotationReader
 
             $refClass = $refClass->getParentClass();
         }
-
-
     }
 
     private function readMethod()
     {
+        $reader = new DoctrineAnnotationReader();
+        $refClass = new \ReflectionClass($this->instance);
 
+        while ($refClass !== false) {
+            foreach ($refClass->getMethods() as $refMethod) {
+                if ($refClass->getName() !== $refMethod->class) {
+                    continue;
+                }
+
+                $annotations = $reader->getMethodAnnotations($refMethod);
+                if (empty($annotations)) {
+                    continue;
+                }
+
+                for ($i = 0, $count = count($annotations); $i < $count; $i++) {
+                    $annotation = $annotations[$i];
+                    // $annotation->strictInject('logger', )
+
+                    if (!$annotation instanceof IMethod && !$annotation instanceof IMethods) {
+                        continue;
+                    }
+
+                    $key = get_class($annotation);
+
+
+                    try {
+                        $annotation->onMethodInject($this->instance, $this->container, $method);
+                    } catch (\Exception $e) {
+                        if ($this->exception === null) {
+                            $this->exception = new ExceptionDelegator($this->instance, $e, $executeMethod);
+                        }
+                        continue;
+                    }
+                    // IReadを実装している場合、任意のデータを返却する
+                    if ($annotation instanceof IRead) {
+                        if (!array_key_exists($key, $this->injectedAnnotations)) {
+                            $this->injectedAnnotations[$key] = [];
+                        }
+                        $this->injectedAnnotations[$key][] = $annotation->onInjected();
+                    }
+                }
+            }
+
+            $refClass = $refClass->getParentClass();
+        }
     }
 
     private function readProperty()

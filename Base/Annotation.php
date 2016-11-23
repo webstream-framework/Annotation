@@ -18,7 +18,7 @@ abstract class Annotation
     /**
      * @var Psr\Log\LoggerInterface
      */
-    private $logger;
+    protected $logger;
 
     /**
      * constructor
@@ -26,24 +26,22 @@ abstract class Annotation
      */
     public function __construct(array $annotations = [])
     {
-        $factory = new ContainerFactory($annotations);
-        $this->onInject($factory->createContainer());
+        $this->logger = new class() { function __call($name, $args) {} };
+        $this->onInject($annotations);
     }
 
     /**
      * Add injected log
      * @param object アノテーションクラスオブジェクト
      */
-    protected function injectedLog(Annotation $class)
-    {
-        $this->logger->debug("@" . get_class($class) . " injected.");
-    }
-
-    abstract public function create(array $containerList): callable;
+    // public function onInjectLog(Annotation $class)
+    // {
+    //     $this->logger->debug("@" . get_class($class) . " injected.");
+    // }
 
     /**
      * Injected event
      * @param AnnotationContainer アノテーションコンテナ
      */
-    // abstract public function onInject(AnnotationContainer $container);
+    abstract public function onInject(array $annotations);
 }
