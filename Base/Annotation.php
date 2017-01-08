@@ -31,17 +31,8 @@ abstract class Annotation
     }
 
     /**
-     * Add injected log
-     * @param object アノテーションクラスオブジェクト
-     */
-    // public function onInjectLog(Annotation $class)
-    // {
-    //     $this->logger->debug("@" . get_class($class) . " injected.");
-    // }
-
-    /**
      * Injected event
-     * @param AnnotationContainer アノテーションコンテナ
+     * @param array<string> アノテーションコンテナ
      */
     abstract public function onInject(array $annotations);
 }

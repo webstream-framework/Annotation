@@ -53,13 +53,11 @@ class Filter extends Annotation implements IMethods, IRead
     /**
      * {@inheritdoc}
      */
-    public function onMethodInject(IAnnotatable &$instance, Container $container, \ReflectionMethod $method)
+    public function onMethodInject(IAnnotatable $instance, \ReflectionMethod $method, Container $container)
     {
-        $this->injectedLog($this);
-
         $annotation = $this->annotation;
         $classpath = get_class($instance);
-        $action = $container->router->action;
+        // $action = $container->router->action;
         // $this->injectedContainer->method = $method;
         // $this->injectedContainer->classpath = get_class($instance);
         // $this->injectedContainer->action = $container->router->action;

@@ -203,22 +203,23 @@ class AnnotationReader
                     }
 
                     $key = get_class($annotation);
-
+                    $container = array_key_exists($key, $this->readableMap) ? $this->readableMap[$key] : new Container();
 
                     try {
-                        $annotation->onMethodInject($this->instance, $this->container, $method);
+                        $annotation->onMethodInject($this->instance, $refMethod, $container);
                     } catch (\Exception $e) {
                         if ($this->exception === null) {
                             $this->exception = new ExceptionDelegator($this->instance, $e, $executeMethod);
                         }
                         continue;
                     }
+
                     // IReadを実装している場合、任意のデータを返却する
                     if ($annotation instanceof IRead) {
-                        if (!array_key_exists($key, $this->injectedAnnotations)) {
-                            $this->injectedAnnotations[$key] = [];
+                        if (!array_key_exists($key, $this->annotationInfoList)) {
+                            $this->annotationInfoList[$key] = [];
                         }
-                        $this->injectedAnnotations[$key][] = $annotation->onInjected();
+                        $this->annotationInfoList[$key][] = $annotation->getAnnotationInfo();
                     }
                 }
             }
