@@ -1,10 +1,10 @@
 <?php
-namespace WebStream\Test;
+namespace WebStream\Annotation\Test\Fixtures;
 
 use WebStream\Annotation\Base\IAnnotatable;
 use WebStream\Annotation\Header;
 
-class Hoge implements IAnnotatable
+class Fixture1 implements IAnnotatable
 {
     /**
      * @Header(allowMethod="post")

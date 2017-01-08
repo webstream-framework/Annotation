@@ -10,7 +10,7 @@ use WebStream\Annotation\Base\IProperty;
 use WebStream\Annotation\Base\IRead;
 use WebStream\Container\Container;
 use WebStream\DI\Injector;
-// use WebStream\Delegate\ExceptionDelegator;
+use WebStream\Exception\Delegate\ExceptionDelegator;
 use WebStream\Exception\Extend\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader as DoctrineAnnotationReader;
 use Doctrine\Common\Annotations\AnnotationException as DoctrineAnnotationException;
@@ -66,6 +66,11 @@ class AnnotationReader
     private $annotationClasspath;
 
     /**
+     * @var string アクションメソッド
+     */
+    private $actionMethod;
+
+    /**
      * constructor
      * @param IAnnotatable ターゲットインスタンス
      * @param Container 依存コンテナ
@@ -96,11 +101,20 @@ class AnnotationReader
 
     /**
      * 発生した例外を返却する
-     * @param callable 発生した例外
+     * @param ExceptionDelegator 発生した例外
      */
-    public function getException(): callable
+    public function getException(): ExceptionDelegator
     {
         return $this->exception;
+    }
+
+    /**
+     * アクションメソッドを設定する
+     * @param string アクションメソッド
+     */
+    public function setActionMethod(string $actionMethod)
+    {
+        $this->actionMethod = $actionMethod;
     }
 
     /**
@@ -178,7 +192,7 @@ class AnnotationReader
         }
     }
 
-    private function readMethod()
+    public function readMethod()
     {
         $reader = new DoctrineAnnotationReader();
         $refClass = new \ReflectionClass($this->instance);
@@ -196,20 +210,23 @@ class AnnotationReader
 
                 for ($i = 0, $count = count($annotations); $i < $count; $i++) {
                     $annotation = $annotations[$i];
-                    // $annotation->strictInject('logger', )
 
                     if (!$annotation instanceof IMethod && !$annotation instanceof IMethods) {
                         continue;
                     }
 
                     $key = get_class($annotation);
-                    $container = array_key_exists($key, $this->readableMap) ? $this->readableMap[$key] : new Container();
+                    $container = array_key_exists($key, $this->readableMap) ? $this->readableMap[$key] : null;
+
+                    if ($container === null) {
+                        continue;
+                    }
 
                     try {
                         $annotation->onMethodInject($this->instance, $refMethod, $container);
                     } catch (\Exception $e) {
                         if ($this->exception === null) {
-                            $this->exception = new ExceptionDelegator($this->instance, $e, $executeMethod);
+                            $this->exception = new ExceptionDelegator($this->instance, $e, $this->actionMethod);
                         }
                         continue;
                     }

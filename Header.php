@@ -66,7 +66,8 @@ class Header extends Annotation implements IMethod, IRead
      */
     public function onInject(array $injectAnnotation)
     {
-        $this->injectAnnotation = $injectAnnotation;
+        $defaultInjectAnnotation = ['allowMethod' => '', 'contentType' => ''];
+        $this->injectAnnotation = array_merge($defaultInjectAnnotation, $injectAnnotation);
         $this->readAnnotation = [];
     }
 
