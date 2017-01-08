@@ -14,19 +14,25 @@ require_once dirname(__FILE__) . '/../Base/IAnnotatable.php';
 require_once dirname(__FILE__) . '/../Base/IMethod.php';
 require_once dirname(__FILE__) . '/../Base/IMethods.php';
 require_once dirname(__FILE__) . '/../Base/IRead.php';
-require_once dirname(__FILE__) . '/../Reader/AnnotationReader2.php';
+require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
 require_once dirname(__FILE__) . '/../Header.php';
 require_once dirname(__FILE__) . '/../Test/Providers/HeaderAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/FixtureContainerFactory.php';
-require_once dirname(__FILE__) . '/../Test/Fixtures/Fixture1.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/HeaderFixture.php';
 
 use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Test\Fixtures\FixtureContainerFactory;
-use WebStream\Annotation\Test\Fixtures\Fixture1;
+use WebStream\Annotation\Test\Fixtures\HeaderFixture;
 use WebStream\Annotation\Test\Providers\HeaderAnnotationProvider;
 use WebStream\Exception\Delegate\ExceptionDelegator;
 use WebStream\Container\Container;
 
+/**
+ * HeaderAnnotationTest
+ * @author Ryuichi TANAKA.
+ * @since 2017/01/09
+ * @version 0.7
+ */
 class HeaderAnnotationTest extends \PHPUnit_Framework_TestCase
 {
     use HeaderAnnotationProvider;
@@ -39,8 +45,8 @@ class HeaderAnnotationTest extends \PHPUnit_Framework_TestCase
      */
     public function okAnnotationTest($requestMethod)
     {
-        $instance = new Fixture1();
-        $container = FixtureContainerFactory::getFixture1Container1($requestMethod);
+        $instance = new HeaderFixture();
+        $container = FixtureContainerFactory::getHeaderFixtureContainer1($requestMethod);
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod("method");
         $annotaionReader->readable("WebStream\Annotation\Header", $container);
@@ -62,8 +68,8 @@ class HeaderAnnotationTest extends \PHPUnit_Framework_TestCase
      */
     public function ngAnnotationTest($requestMethod)
     {
-        $instance = new Fixture1();
-        $container = FixtureContainerFactory::getFixture1Container1($requestMethod);
+        $instance = new HeaderFixture();
+        $container = FixtureContainerFactory::getHeaderFixtureContainer1($requestMethod);
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod("method");
         $annotaionReader->readable("WebStream\Annotation\Header", $container);
@@ -79,8 +85,8 @@ class HeaderAnnotationTest extends \PHPUnit_Framework_TestCase
      */
     public function ngUnReadableAnnotationTest($requestMethod)
     {
-        $instance = new Fixture1();
-        $container = FixtureContainerFactory::getFixture1Container1($requestMethod);
+        $instance = new HeaderFixture();
+        $container = FixtureContainerFactory::getHeaderFixtureContainer1($requestMethod);
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod("method");
         $annotaionReader->readMethod();

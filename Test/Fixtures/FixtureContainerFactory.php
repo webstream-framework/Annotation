@@ -5,14 +5,21 @@ use WebStream\Container\Container;
 
 class FixtureContainerFactory
 {
-    public static function getFixture1Container1($requestMethod)
+    public static function getHeaderFixtureContainer1($requestMethod)
     {
         // invalid request method
         $container = new Container();
-        $container->request = new Container();
-        $container->request->requestMethod = $requestMethod;
-        $container->request->contentType = "html";
+        $container->requestMethod = $requestMethod;
+        $container->contentType = "html";
 
+        return $container;
+    }
+
+    public static function getFilterFixtureContainer1()
+    {
+        // invalid request method
+        $container = new Container();
+        $container->action = "action";
         return $container;
     }
 }

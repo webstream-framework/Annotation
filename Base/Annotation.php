@@ -1,8 +1,6 @@
 <?php
 namespace WebStream\Annotation\Base;
 
-use WebStream\Annotation\Container\AnnotationContainer;
-use WebStream\Annotation\Container\ContainerFactory;
 use WebStream\DI\Injector;
 
 /**
