@@ -4,19 +4,22 @@ namespace WebStream\Annotation\Test\Fixtures;
 use WebStream\Annotation\Base\IAnnotatable;
 use WebStream\Annotation\ExceptionHandler;
 use WebStream\Exception\ApplicationException;
+use WebStream\Exception\Extend\InvalidArgumentException;
 
-class ExceptionHandlerFixture implements IAnnotatable
+/**
+ * 捕捉例外のサブクラスの例外が発生した場合
+ */
+class ExceptionHandlerFixture2 implements IAnnotatable
 {
     public function action()
     {
-        throw new ApplicationException("message");
+        throw new InvalidArgumentException("message");
     }
 
     /**
      * @ExceptionHandler("WebStream\Exception\ApplicationException")
      */
-    public function error($params)
+    public function error()
     {
-        echo $params["method"];
     }
 }
