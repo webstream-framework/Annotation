@@ -17,14 +17,17 @@ require_once dirname(__FILE__) . '/../Filter.php';
 require_once dirname(__FILE__) . '/../Container/AnnotationContainer.php';
 require_once dirname(__FILE__) . '/../Container/AnnotationListContainer.php';
 require_once dirname(__FILE__) . '/../Test/Providers/FilterAnnotationProvider.php';
-require_once dirname(__FILE__) . '/../Test/Fixtures/FixtureContainerFactory.php';
-require_once dirname(__FILE__) . '/../Test/Fixtures/FilterFixture.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/FilterFixture1.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/FilterFixture2.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/FilterFixture3.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/FilterFixture4.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/FilterFixture5.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/FilterFixture6.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/FilterFixture7.php';
 
 use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Reader\Extend\FilterExtendReader;
 use WebStream\Annotation\Filter;
-use WebStream\Annotation\Test\Fixtures\FixtureContainerFactory;
-use WebStream\Annotation\Test\Fixtures\FilterFixture;
 use WebStream\Annotation\Test\Providers\FilterAnnotationProvider;
 use WebStream\Exception\Delegate\ExceptionDelegator;
 use WebStream\Container\Container;
@@ -41,26 +44,33 @@ class FilterAnnotationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * 正常系
+     * before/afterフィルタが実行されること
      * @test
+     * @dataProvider filterOutputProvider
      */
-    public function okAnnotationTest()
+    public function okAnnotationTest($output, $clazz, $action)
     {
-        $instance = new FilterFixture();
-        $container = FixtureContainerFactory::getFilterFixtureContainer1();
+        $instance = new $clazz();
+        $container = new Container();
+        $container->action = $action;
         $annotaionReader = new AnnotationReader($instance);
-        $annotaionReader->setActionMethod("method");
+        $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Filter::class, $container);
         $annotaionReader->useExtendReader(Filter::class, FilterExtendReader::class);
         $annotaionReader->readMethod();
+        $annotation = $annotaionReader->getAnnotationInfoList();
 
-        $ttt = $annotaionReader->getAnnotationInfoList();
-        var_dump($ttt);
+        foreach ($annotation[Filter::class]->initialize as $refMethod) {
+            $refMethod->invoke($instance);
+        }
+        foreach ($annotation[Filter::class]->before as $refMethod) {
+            $refMethod->invoke($instance);
+        }
+        $instance->{$action}();
+        foreach ($annotation[Filter::class]->after as $refMethod) {
+            $refMethod->invoke($instance);
+        }
 
-        // $this->assertArraySubset(
-        //     ['WebStream\Annotation\Header' => [
-        //         ['contentType' => 'html']
-        //     ]],
-        //     $annotaionReader->getAnnotationInfoList()
-        // );
+        $this->expectOutputString($output);
     }
 }

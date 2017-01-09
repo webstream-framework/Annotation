@@ -20,6 +20,7 @@ require_once dirname(__FILE__) . '/../Test/Providers/HeaderAnnotationProvider.ph
 require_once dirname(__FILE__) . '/../Test/Fixtures/FixtureContainerFactory.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/HeaderFixture.php';
 
+use WebStream\Annotation\Header;
 use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Test\Fixtures\FixtureContainerFactory;
 use WebStream\Annotation\Test\Fixtures\HeaderFixture;
@@ -46,14 +47,16 @@ class HeaderAnnotationTest extends \PHPUnit_Framework_TestCase
     public function okAnnotationTest($requestMethod)
     {
         $instance = new HeaderFixture();
-        $container = FixtureContainerFactory::getHeaderFixtureContainer1($requestMethod);
+        $container = new Container();
+        $container->requestMethod = $requestMethod;
+        $container->contentType = "html";
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod("method");
-        $annotaionReader->readable("WebStream\Annotation\Header", $container);
+        $annotaionReader->readable(Header::class, $container);
         $annotaionReader->readMethod();
 
         $this->assertArraySubset(
-            ['WebStream\Annotation\Header' => [
+            [Header::class => [
                 ['contentType' => 'html']
             ]],
             $annotaionReader->getAnnotationInfoList()
@@ -69,10 +72,12 @@ class HeaderAnnotationTest extends \PHPUnit_Framework_TestCase
     public function ngAnnotationTest($requestMethod)
     {
         $instance = new HeaderFixture();
-        $container = FixtureContainerFactory::getHeaderFixtureContainer1($requestMethod);
+        $container = new Container();
+        $container->requestMethod = $requestMethod;
+        $container->contentType = "html";
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod("method");
-        $annotaionReader->readable("WebStream\Annotation\Header", $container);
+        $annotaionReader->readable(Header::class, $container);
         $annotaionReader->readMethod();
         $this->assertInstanceOf(ExceptionDelegator::class, $annotaionReader->getException());
     }
@@ -86,7 +91,9 @@ class HeaderAnnotationTest extends \PHPUnit_Framework_TestCase
     public function ngUnReadableAnnotationTest($requestMethod)
     {
         $instance = new HeaderFixture();
-        $container = FixtureContainerFactory::getHeaderFixtureContainer1($requestMethod);
+        $container = new Container();
+        $container->requestMethod = $requestMethod;
+        $container->contentType = "html";
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod("method");
         $annotaionReader->readMethod();
