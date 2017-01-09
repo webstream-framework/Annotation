@@ -254,11 +254,11 @@ class AnnotationReader
                     }
 
                     $key = get_class($annotation);
-                    $container = array_key_exists($key, $this->readableMap) ? $this->readableMap[$key] : null;
-
-                    if ($container === null) {
+                    if (!array_key_exists($key, $this->readableMap)) {
                         continue;
                     }
+
+                    $container = $this->readableMap[$key];
 
                     try {
                         $annotation->onMethodInject($this->instance, $refMethod, $container);

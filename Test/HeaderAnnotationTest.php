@@ -22,7 +22,6 @@ require_once dirname(__FILE__) . '/../Test/Fixtures/HeaderFixture.php';
 
 use WebStream\Annotation\Header;
 use WebStream\Annotation\Reader\AnnotationReader;
-use WebStream\Annotation\Test\Fixtures\FixtureContainerFactory;
 use WebStream\Annotation\Test\Fixtures\HeaderFixture;
 use WebStream\Annotation\Test\Providers\HeaderAnnotationProvider;
 use WebStream\Exception\Delegate\ExceptionDelegator;
