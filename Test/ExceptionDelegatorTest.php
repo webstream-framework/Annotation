@@ -35,10 +35,10 @@ class ExceptionDelegatorTest extends \PHPUnit_Framework_TestCase
      * @dataProvider exceptionProvider
      * @expectedException \Exception
      */
-    public function okDelegatableExceptionTest($exception)
+    public function okDelegatableExceptionTest($handledException, $exceptionObject)
     {
         $instance = new InjectedClass();
-        $delegator = new ExceptionDelegator($instance, $exception);
+        $delegator = new ExceptionDelegator($instance, $exceptionObject);
         $delegator->raise();
         $this->assertTrue(false);
     }
@@ -50,13 +50,13 @@ class ExceptionDelegatorTest extends \PHPUnit_Framework_TestCase
      * @test
      * @dataProvider exceptionProvider
      */
-    public function okDelegateAndHandleTest($exception)
+    public function okDelegateAndHandleTest($handledException, $exceptionObject)
     {
         $instance = new InjectedClass();
         $container = new Container();
-        $container->exceptions = [$exception];
+        $container->exceptions = [$handledException];
         $container->method = new \ReflectionMethod($instance, "handled1");
-        $delegator = new ExceptionDelegator($instance, $exception);
+        $delegator = new ExceptionDelegator($instance, $exceptionObject);
         $delegator->setExceptionHandler([$container]);
 
         $isAsserted = false;
@@ -64,7 +64,6 @@ class ExceptionDelegatorTest extends \PHPUnit_Framework_TestCase
             $delegator->raise();
         } catch (\Exception $e) {
             $this->assertInstanceOf(DelegateException::class, $e);
-            $this->assertInstanceOf(get_class($exception), $e->getOriginException());
             $this->expectOutputString("handled");
             $isAsserted = true;
         }

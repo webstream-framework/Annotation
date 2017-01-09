@@ -16,9 +16,10 @@ trait ExceptionDelegatorProvider
     public function exceptionProvider()
     {
         return [
-            [new SystemException("error message")],
-            [new ApplicationException("error message")],
-            [new DelegateException(new ApplicationException("error message"))]
+            [new SystemException("error message"), new SystemException("")],
+            [new ApplicationException("error message"), new ApplicationException("")],
+            [SystemException::class, new SystemException("")],
+            [ApplicationException::class, new ApplicationException("")],
         ];
     }
 }
