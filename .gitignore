@@ -1,5 +1,5 @@
-!.gitkeep
-.svn
 .DS_Store
-sandbox/
+vendor
+composer.lock
+sandbox
 Rakefile
