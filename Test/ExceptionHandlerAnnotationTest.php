@@ -37,7 +37,7 @@ class ExceptionHandlerAnnotationTest extends \PHPUnit_Framework_TestCase
      * @test
      * @dataProvider okProvider
      */
-    public function okTest($fixtureClass, $exceptionClass, $action)
+    public function okAnnotationTest($fixtureClass, $exceptionClass, $action)
     {
         $instance = new $fixtureClass();
         $container = new Container();

@@ -131,7 +131,7 @@ class AnnotationReader
      * 発生した例外を返却する
      * @param ExceptionDelegator 発生した例外
      */
-    public function getException(): ExceptionDelegator
+    public function getException()
     {
         return $this->exception;
     }
