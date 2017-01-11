@@ -21,7 +21,7 @@ use WebStream\Exception\Test\Providers\ExceptionDelegatorProvider;
 /**
 * ExceptionDelegatorTest
 * @author Ryuichi TANAKA.
-* @since 2017/01/07_
+* @since 2017/01/07
 * @version 0.7
  */
 class ExceptionDelegatorTest extends \PHPUnit_Framework_TestCase

@@ -5,6 +5,12 @@ use WebStream\DI\Injector;
 use WebStream\Exception\SystemException;
 use WebStream\Exception\DelegateException;
 
+/**
+ * ExceptionDelegator
+ * @author Ryuichi TANAKA.
+ * @since 2014/05/05
+ * @version 0.7
+ */
 class ExceptionDelegator
 {
     use Injector;
