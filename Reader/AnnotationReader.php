@@ -253,6 +253,14 @@ class AnnotationReader
                         continue;
                     }
 
+                    // IMethodを実装している場合、アクションメソッドのアノテーション以外は読み込まない
+                    // PHPのメソッドは大文字小文字を区別しないため、そのまま比較するとルーティング解決結果と実際のメソッド名が合わないケースがある
+                    // PHPの仕様に合わせてメソッド名の文字列比較は小文字に変換してから行う
+                    if ($annotation instanceof IMethod && strtolower($this->actionMethod) !== strtolower($refMethod->name)) {
+                        continue;
+                    }
+
+                    // 読み込み可能なアノテーション以外は読み込まない
                     $key = get_class($annotation);
                     if (!array_key_exists($key, $this->readableMap)) {
                         continue;
