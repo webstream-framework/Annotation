@@ -31,7 +31,7 @@ class Header extends Annotation implements IMethod, IRead
     private $readAnnotation;
 
     /**
-     * @var array<string> mimeタイプリスト
+     * @var array<string, string> mimeタイプリスト
      */
     private $contentTypeList = [
         'txt'   => 'text/plain',
