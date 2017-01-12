@@ -66,7 +66,7 @@ class Header extends Annotation implements IMethod, IRead
      */
     public function onInject(array $injectAnnotation)
     {
-        $defaultInjectAnnotation = ['allowMethod' => '', 'contentType' => ''];
+        $defaultInjectAnnotation = ['allowMethod' => null, 'contentType' => null];
         $this->injectAnnotation = array_merge($defaultInjectAnnotation, $injectAnnotation);
         $this->readAnnotation = [];
     }
@@ -110,7 +110,16 @@ class Header extends Annotation implements IMethod, IRead
         }
 
         $ext = $this->injectAnnotation['contentType'] ?: 'html';
-        $contentType = $this->contentTypeList[$ext];
+
+        if (!is_string($ext)) {
+            $errorMsg = "contentType' attribute of @Header must be string.";
+            throw new AnnotationException($errorMsg);
+        }
+
+        $contentType = null;
+        if (array_key_exists($ext, $this->contentTypeList)) {
+            $contentType = $this->contentTypeList[$ext];
+        }
         if ($contentType === null) {
             $errorMsg = "Invalid value '$ext' in 'contentType' attribute of @Header.";
             throw new AnnotationException($errorMsg);

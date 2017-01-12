@@ -14,17 +14,29 @@ trait HeaderAnnotationProvider
     public function okProvider()
     {
         return [
-            [HeaderFixture1::class, "action1", "POST"],
-            [HeaderFixture1::class, "action2", "POST"]
+            [HeaderFixture1::class, "action1", "POST", "html"],
+            [HeaderFixture1::class, "action2", "POST", "html"],
+            [HeaderFixture1::class, "action3", "POST", "html"],
+            [HeaderFixture1::class, "action3", "GET", "html"],
+            [HeaderFixture1::class, "action5", "GET", "xml"]
         ];
     }
 
-    public function ngProvider()
+    public function runtimeErrorProvider()
     {
         return [
             [HeaderFixture1::class, "action1", "GET"],
             [HeaderFixture1::class, "action1", "PUT"],
             [HeaderFixture1::class, "action1", "DELETE"]
+        ];
+    }
+
+    public function annotationErrorProvider()
+    {
+        return [
+            [HeaderFixture1::class, "action4", "GET"],
+            [HeaderFixture1::class, "action6", "GET"],
+            [HeaderFixture1::class, "action7", "GET"]
         ];
     }
 }

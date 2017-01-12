@@ -19,4 +19,39 @@ class HeaderFixture1 implements IAnnotatable
     public function action2()
     {
     }
+
+    /**
+     * @Header(allowMethod={"get", "post"})
+     */
+    public function action3()
+    {
+    }
+
+    /**
+     * @Header(allowMethod="undefined")
+     */
+    public function action4()
+    {
+    }
+
+    /**
+     * @Header(contentType="xml")
+     */
+    public function action5()
+    {
+    }
+
+    /**
+     * @Header(contentType="undefined")
+     */
+    public function action6()
+    {
+    }
+
+    /**
+     * @Header(contentType={"html", "xml"})
+     */
+    public function action7()
+    {
+    }
 }
