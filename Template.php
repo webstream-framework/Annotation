@@ -51,12 +51,10 @@ class Template extends Annotation implements IMethod, IRead
      */
     public function onMethodInject(IAnnotatable $instance, \ReflectionMethod $method, Container $container)
     {
-        $filename = $this->injectAnnotation['value'];
-        $engine = $this->injectAnnotation['engine'] ?: "basic";
-        $debug = $this->injectAnnotation['debug'] ?: false;
-        $cacheTime = $this->injectAnnotation['cacheTime'];
-
-        var_dump($engine);
+        $filename = array_key_exists('value', $this->injectAnnotation) ? $this->injectAnnotation['value'] : null;
+        $engine = array_key_exists('engine', $this->injectAnnotation) ? $this->injectAnnotation['engine'] : "basic";
+        $debug = array_key_exists('debug', $this->injectAnnotation) ? $this->injectAnnotation['debug'] : false;
+        $cacheTime = array_key_exists('cacheTime', $this->injectAnnotation) ? $this->injectAnnotation['cacheTime'] : null;
 
         if (PHP_OS === "WIN32" || PHP_OS === "WINNT") {
             if (preg_match("/^.*[. ]|.*[\p{Cntrl}\/:*?\"<>|].*|(?i:CON|PRN|AUX|CLOCK\$|NUL|COM[1-9]|LPT[1-9])(?:[.].+)?$/", $filename)) {
