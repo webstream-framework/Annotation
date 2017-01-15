@@ -59,11 +59,7 @@ class Database extends Annotation implements IClass, IRead
             throw new DatabaseException("Database driver is undefined：" . $driver);
         }
 
-        $file = new File($container->configPath);
-        if (!$file->getAbsoluteFilePath()) {
-            throw new DatabaseException("Database config file is not found: " . $configPath);
-        }
-
+        $file = new File($container->rootPath . '/' . $config);
         $this->readAnnotation['filepath'] = $class->getFileName();
         $this->readAnnotation['configPath'] = $file->getAbsoluteFilePath();
         $this->readAnnotation['driverClassPath'] = $driver;

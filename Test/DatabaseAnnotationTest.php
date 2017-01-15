@@ -16,6 +16,7 @@ require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
 require_once dirname(__FILE__) . '/../Database.php';
 require_once dirname(__FILE__) . '/../Test/Providers/DatabaseAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/DatabaseFixture1.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/DatabaseFixture2.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/DatabaseDriverFixture.php';
 
 use WebStream\Annotation\Reader\AnnotationReader;
@@ -36,23 +37,46 @@ class DatabaseAnnotationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * 正常系
+     * テンプレート情報を読み込めること
      * @test
      * @dataProvider okProvider
      */
-    public function okAnnotationTest($clazz, $action, $configPath, $result)
+    public function okAnnotationTest($clazz, $action, $rootPath, $result)
     {
         $instance = new $clazz();
         $container = new Container();
-        $container->action = $action;
-        $container->configPath = $configPath;
+        $container->rootPath = $rootPath;
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Database::class, $container);
         $annotaionReader->readClass();
         $annotation = $annotaionReader->getAnnotationInfoList();
 
-        var_dump(realpath(dirname(__FILE__) . "/../Fixtures/DatabaseFixture1.php"));
+        $this->assertArraySubset(
+            [Database::class => $result],
+            $annotaionReader->getAnnotationInfoList()
+        );
+    }
 
-        var_dump($annotation);
+    /**
+     * 異常系
+     * データベースドライバが読み込めない場合、例外が発生すること
+     * @test
+     * @dataProvider ngProvider
+     * @expectedException WebStream\Exception\Extend\DatabaseException
+     */
+    public function ngAnnotationTest($clazz, $action)
+    {
+        $instance = new $clazz();
+        $container = new Container();
+        $annotaionReader = new AnnotationReader($instance);
+        $annotaionReader->setActionMethod($action);
+        $annotaionReader->readable(Database::class, $container);
+        $annotaionReader->readClass();
+        $annotation = $annotaionReader->getAnnotationInfoList();
+        $exception = $annotaionReader->getException();
+
+        $this->assertNotNull($exception);
+        $exception->raise();
     }
 }

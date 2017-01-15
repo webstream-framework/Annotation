@@ -5,7 +5,7 @@ use WebStream\Annotation\Base\IAnnotatable;
 use WebStream\Annotation\Database;
 
 /**
- * @Database(driver="WebStream\Annotation\Test\Fixtures\DatabaseDriverFixture", config="config/database.mysql.ini")
+ * @Database(driver="WebStream\Annotation\Test\Fixtures\DatabaseDriverFixture", config="database.config.ini")
  */
 class DatabaseFixture1 implements IAnnotatable
 {

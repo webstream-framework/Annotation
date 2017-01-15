@@ -33,7 +33,7 @@ class TemplateAnnotationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * 正常系
-     * テンプレート情報を読み込めること
+     * データベース情報を読み込めること
      * @test
      * @dataProvider okProvider
      */
