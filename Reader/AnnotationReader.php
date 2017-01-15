@@ -213,10 +213,10 @@ class AnnotationReader
 
                     // IReadを実装している場合、任意のデータを返却する
                     if ($annotation instanceof IRead) {
-                        if (!array_key_exists($key, $this->injectedAnnotations)) {
-                            $this->injectedAnnotations[$key] = [];
+                        if (!array_key_exists($key, $this->annotationInfoList)) {
+                            $this->annotationInfoList[$key] = [];
                         }
-                        $this->injectedAnnotations[$key][] = $annotation->onInjected();
+                        $this->annotationInfoList[$key][] = $annotation->getAnnotationInfo();
                     }
                 }
             }

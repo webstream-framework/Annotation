@@ -7,6 +7,7 @@ use WebStream\Annotation\Base\IRead;
 use WebStream\Annotation\Base\IClass;
 use WebStream\Container\Container;
 use WebStream\Exception\Extend\DatabaseException;
+use WebStream\IO\File;
 
 /**
  * Database
@@ -58,14 +59,13 @@ class Database extends Annotation implements IClass, IRead
             throw new DatabaseException("Database driver is undefined：" . $driver);
         }
 
-        $configPath = $container->applicationInfo->applicationRoot . "/" . $config;
-        $configRealPath = realpath($configPath);
-        if (!file_exists($configRealPath)) {
+        $file = new File($container->configPath);
+        if (!$file->getAbsoluteFilePath()) {
             throw new DatabaseException("Database config file is not found: " . $configPath);
         }
 
-        $this->injectedContainer->filepath = $class->getFileName();
-        $this->injectedContainer->configPath = $configRealPath;
-        $this->injectedContainer->driverClassPath = $driver;
+        $this->readAnnotation['filepath'] = $class->getFileName();
+        $this->readAnnotation['configPath'] = $file->getAbsoluteFilePath();
+        $this->readAnnotation['driverClassPath'] = $driver;
     }
 }

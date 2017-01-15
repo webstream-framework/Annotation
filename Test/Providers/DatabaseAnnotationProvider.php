@@ -14,9 +14,10 @@ trait DatabaseAnnotationProvider
     public function okProvider()
     {
         return [
-            [DatabaseFixture1::class, "action1", [[
-                'filename' => "test.tmpl",
-                'engine' => "WebStream\Annotation\Basic"
+            [DatabaseFixture1::class, "action1", dirname(__FILE__) . "/../Fixtures/database.config.ini", [[
+                'filename' => realpath(dirname(__FILE__) . "/../Fixtures/DatabaseFixture1.php"),
+                'configPath' => "WebStream\Annotation\Basic",
+                'driverClassPath' => ""
             ]]]
         ];
     }
