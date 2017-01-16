@@ -8,12 +8,17 @@ require_once dirname(__FILE__) . '/../Modules/Exception/ApplicationException.php
 require_once dirname(__FILE__) . '/../Modules/Exception/Extend/AnnotationException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/Extend/DatabaseException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/Delegate/ExceptionDelegator.php';
+require_once dirname(__FILE__) . '/../Modules/IO/InputStream.php';
 require_once dirname(__FILE__) . '/../Modules/IO/File.php';
+require_once dirname(__FILE__) . '/../Modules/IO/FileInputStream.php';
+require_once dirname(__FILE__) . '/../Modules/IO/Reader/InputStreamReader.php';
 require_once dirname(__FILE__) . '/../Base/Annotation.php';
 require_once dirname(__FILE__) . '/../Base/IAnnotatable.php';
 require_once dirname(__FILE__) . '/../Base/IMethods.php';
 require_once dirname(__FILE__) . '/../Base/IRead.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
+require_once dirname(__FILE__) . '/../Reader/Extend/ExtendReader.php';
+require_once dirname(__FILE__) . '/../Reader/Extend/QueryExtendReader.php';
 require_once dirname(__FILE__) . '/../Container/AnnotationContainer.php';
 require_once dirname(__FILE__) . '/../Container/AnnotationListContainer.php';
 require_once dirname(__FILE__) . '/../Query.php';
@@ -23,6 +28,7 @@ require_once dirname(__FILE__) . '/../Test/Fixtures/QueryFixture2.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/QueryFixture3.php';
 
 use WebStream\Annotation\Reader\AnnotationReader;
+use WebStream\Annotation\Reader\Extend\QueryExtendReader;
 use WebStream\Annotation\Query;
 use WebStream\Annotation\Test\Providers\QueryAnnotationProvider;
 use WebStream\Container\Container;
@@ -52,6 +58,7 @@ class QueryAnnotationTest extends \PHPUnit_Framework_TestCase
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Query::class, $container);
+        $annotaionReader->useExtendReader(Query::class, QueryExtendReader::class);
         $annotaionReader->readMethod();
         $annotation = $annotaionReader->getAnnotationInfoList();
 
