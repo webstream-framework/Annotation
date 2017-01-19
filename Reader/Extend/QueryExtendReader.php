@@ -30,7 +30,6 @@ class QueryExtendReader extends ExtendReader
     public function read(array $annotationInfoList)
     {
         $func = function ($queryKey, $xpath) use ($annotationInfoList) {
-            var_dump("hoge");
             $query = null;
             foreach ($annotationInfoList as $annotationInfo) {
                 $queryFunctions = $annotationInfo[$queryKey];
