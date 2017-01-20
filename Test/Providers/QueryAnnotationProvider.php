@@ -16,7 +16,12 @@ trait QueryAnnotationProvider
     public function okProvider()
     {
         return [
-            [QueryFixture1::class, "action1", dirname(__FILE__) . "/../Fixtures/"]
+            [QueryFixture1::class, "action1", dirname(__FILE__) . "/../Fixtures/", "select1",
+                ['sql' => 'SQL', 'method' => 'select', 'entity' => null]
+            ],
+            [QueryFixture1::class, "action1", dirname(__FILE__) . "/../Fixtures/", "select2",
+                ['sql' => 'SQL', 'method' => 'select', 'entity' => 'EntityClass']
+            ]
         ];
     }
 

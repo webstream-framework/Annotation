@@ -9,7 +9,6 @@ use WebStream\Annotation\container\AnnotationListContainer;
 use WebStream\Container\Container;
 use WebStream\Exception\Extend\DatabaseException;
 use WebStream\IO\File;
-use WebStream\IO\FileInputStream;
 
 /**
  * Query
@@ -55,15 +54,11 @@ class Query extends Annotation implements IMethods, IRead
     public function onMethodInject(IAnnotatable $instance, \ReflectionMethod $method, Container $container)
     {
         $key = $method->class . "#" . $method->name;
-        if (!array_key_exists($key, $this->readAnnotation)) {
-            $this->readAnnotation[$key] = new AnnotationListContainer();
-        }
-
         if (!array_key_exists('file', $this->injectAnnotation)) {
             throw new AnnotationException("'file' attribute must be required in @Query");
         }
 
-        $files = [];
+        $xmlObjects = [];
         $filePath = $this->injectAnnotation['file'];
         if (!is_array($filePath)) {
             $filePath = [$filePath];
@@ -74,37 +69,15 @@ class Query extends Annotation implements IMethods, IRead
             if (!$file->isFile()) {
                 throw new DatabaseException("Failded to read query file: " . $file->getFilePath());
             }
-            $files[] = $file;
+
+            try {
+                $xmlObject = new \SimpleXMLElement($file->getAbsoluteFilePath(), null, true);
+                $xmlObjects[] = $xmlObject;
+            } catch (\Exception $e) {
+                throw new DatabaseException($e->getMessage() . ": " . $file->getFilePath());
+            }
         }
 
-        $this->readAnnotation[$key]->pushAsLazy(function () use ($files) {
-            $xmlObjectList = [];
-            foreach ($files as $file) {
-                if ($file->isFile()) {
-                    $xmlObject = simplexml_load_file($file->getAbsoluteFilePath());
-                    if ($xmlObject === false) {
-                        throw new DatabaseException("Failded to parse query file: " . $file->getFilePath());
-                    }
-
-                    $stream = new FileInputStream($file);
-                    // TODO namespaceをとる。ReadLineでマッチしたところで終了
-
-
-
-
-                    // $xmlElement = $xmlObject->xpath("//mapper[@namespace='$namespace']/*[@id='$method']");
-                    // if (!empty($xmlElement)) {
-                    //     $query = ["sql" => trim($xmlElement[0]->__toString()), "method" => $xmlElement[0]->getName()];
-                    //     $entity = $xmlElement[0]->attributes()["entity"];
-                    //     $query["entity"] = $entity !== null ? $entity->__toString() : null;
-                    //     break;
-                    // }
-
-                    $xmlObjectList[] = $xmlObject;
-                }
-            }
-
-            return $xmlObjectList;
-        });
+        $this->readAnnotation[$key] = $xmlObjects;
     }
 }

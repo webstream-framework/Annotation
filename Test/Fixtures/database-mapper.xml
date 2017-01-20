@@ -2,39 +2,11 @@
 <!DOCTYPE mapper PUBLIC
   "-//github.com/mapserver2007//DTD Mapper 3.0//EN"
   "http://localhost:8080/query/webstream-model-mapper.dtd">
-<mapper namespace="WebStream\Test\IntegrationTest\Model">
-  <select id="queryAnnotationSelect">
-    SELECT
-        *
-    FROM
-        T_WebStream
-    LIMIT
-        :limit, :offset
+<mapper namespace="WebStream\Annotation\Test">
+  <select id="select1">
+    SQL
   </select>
-
-  <insert id="queryAnnotationInsert">
-    INSERT
-    INTO
-        T_WebStream
-    (
-        name
-    )
-    VALUES
-    (
-        :name
-    )
-  </insert>
-
-  <update id="queryAnnotationUpdate">
-    UPDATE
-        T_WebStream
-    SET
-        name = :name
-  </update>
-
-  <delete id="queryAnnotationDelete">
-    DELETE
-    FROM
-        T_WebStream
-  </delete>
+  <select id="select2" entity="EntityClass">
+    SQL
+  </select>
 </mapper>

@@ -50,7 +50,7 @@ class QueryAnnotationTest extends \PHPUnit_Framework_TestCase
      * @test
      * @dataProvider okProvider
      */
-    public function okAnnotationTest($clazz, $action, $rootPath)
+    public function okAnnotationTest($clazz, $action, $rootPath, $key, $result)
     {
         $instance = new $clazz();
         $container = new Container();
@@ -61,14 +61,12 @@ class QueryAnnotationTest extends \PHPUnit_Framework_TestCase
         $annotaionReader->useExtendReader(Query::class, QueryExtendReader::class);
         $annotaionReader->readMethod();
         $annotation = $annotaionReader->getAnnotationInfoList();
+        $namespace = "WebStream\Annotation\Test";
+        $method = $key;
+        $queryKey = "WebStream\Annotation\Test\Fixtures\QueryFixture1#action1";
+        $xpath = "//mapper[@namespace='$namespace']/*[@id='$method']";
 
-        foreach ($annotation[Query::class][0] as $queries) {
-            foreach ($queries as $query) {
-                foreach ($query->fetch() as $data) {
-                    $this->assertInstanceOf("SimpleXMLElement", $data);
-                }
-            }
-        }
+        $this->assertEquals($annotation[Query::class]($queryKey, $xpath), $result);
     }
 
     /**
@@ -86,14 +84,12 @@ class QueryAnnotationTest extends \PHPUnit_Framework_TestCase
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Query::class, $container);
+        $annotaionReader->useExtendReader(Query::class, QueryExtendReader::class);
         $annotaionReader->readMethod();
-        $annotation = $annotaionReader->getAnnotationInfoList();
+        $exception = $annotaionReader->getException();
 
-        foreach ($annotation[Query::class][0] as $queries) {
-            foreach ($queries as $query) {
-                $query->fetch();
-            }
-        }
+        $this->assertNotNull($exception);
+        $exception->raise();
     }
 
     /**
@@ -111,6 +107,7 @@ class QueryAnnotationTest extends \PHPUnit_Framework_TestCase
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Query::class, $container);
+        $annotaionReader->useExtendReader(Query::class, QueryExtendReader::class);
         $annotaionReader->readMethod();
         $exception = $annotaionReader->getException();
 
