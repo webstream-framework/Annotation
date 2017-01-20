@@ -1,7 +1,6 @@
 <?php
 namespace WebStream\Annotation\Test\Providers;
 
-use WebStream\Annotation\Template;
 use WebStream\Annotation\Test\Fixtures\TemplateFixture1;
 
 /**
