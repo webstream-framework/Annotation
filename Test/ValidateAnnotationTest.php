@@ -2,12 +2,11 @@
 namespace WebStream\Annotation\Test;
 
 require_once dirname(__FILE__) . '/../Modules/DI/Injector.php';
-// require_once dirname(__FILE__) . '/../Modules/Exception/ApplicationException.php';
-// require_once dirname(__FILE__) . '/../Modules/Exception/SystemException.php';
-// require_once dirname(__FILE__) . '/../Modules/Exception/Extend/AnnotationException.php';
-// require_once dirname(__FILE__) . '/../Modules/Exception/Extend/InvalidArgumentException.php';
-// require_once dirname(__FILE__) . '/../Modules/Exception/Extend/InvalidRequestException.php';
-// require_once dirname(__FILE__) . '/../Modules/Exception/Delegate/ExceptionDelegator.php';
+require_once dirname(__FILE__) . '/../Modules/Exception/ApplicationException.php';
+require_once dirname(__FILE__) . '/../Modules/Exception/Extend/AnnotationException.php';
+require_once dirname(__FILE__) . '/../Modules/Exception/Extend/InvalidRequestException.php';
+require_once dirname(__FILE__) . '/../Modules/Exception/Extend/ValidateException.php';
+require_once dirname(__FILE__) . '/../Modules/Exception/Delegate/ExceptionDelegator.php';
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
 require_once dirname(__FILE__) . '/../Base/Annotation.php';
 require_once dirname(__FILE__) . '/../Base/IAnnotatable.php';
@@ -34,21 +33,21 @@ class ValidateAnnotationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * 正常系
-     * @Headerの情報が取得できること
+     * バリデーションエラーが発生しないこと
      * @test
      * @dataProvider okProvider
      */
-    public function okAnnotationTest($clazz, $action)
+    public function okAnnotationTest($clazz, $action, $requestMethod)
     {
         $instance = new $clazz();
         $container = new Container();
-        // $container->requestMethod = $requestMethod;
+        $container->requestMethod = $requestMethod;
         // $container->contentType = $contentType;
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Validate::class, $container);
         $annotaionReader->readMethod();
-        var_dump($annotaionReader->getAnnotationInfoList());
+        var_dump($annotaionReader->getException());
 
         // $this->assertArraySubset(
         //     [Header::class => [

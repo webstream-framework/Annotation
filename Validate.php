@@ -7,6 +7,7 @@ use WebStream\Annotation\Base\IMethod;
 use WebStream\Container\Container;
 use WebStream\Exception\Extend\AnnotationException;
 use WebStream\Exception\Extend\InvalidRequestException;
+use WebStream\Exception\Extend\ValidateException;
 
 /**
  * Validate
@@ -41,13 +42,15 @@ class Validate extends Annotation implements IMethod
         $rule = $this->injectAnnotation['rule'];
         $method = $this->injectAnnotation['method'];
 
-        if ($method !== nul && array_key_exists($method, array_flip(["get", "post", "put", "delete"]))) {
+        if ($method !== null && !array_key_exists($method, array_flip(["get", "post", "put", "delete"]))) {
             throw new ValidateException("Invalid method attribute is specified: " . $method);
         }
 
         // パラメータの有無にかかわらずルール定義が間違っている場合はエラー
         if (preg_match('/^([a-zA-Z]{1}[a-zA-Z0-9_]{1,})(?:$|\[(.+?)\]$)/', $rule, $matches)) {
-            $className = $this->snake2ucamel($matches[1]);
+            $className = ucfirst(preg_replace_callback('/_([a-zA-Z])/', function ($matches) {
+                return ucfirst($matches[1]);
+            }, $matches[1]));
             $classpath = null;
             $classLoader = new ClassLoader();
             $classLoader->inject('logger', $container->logger)

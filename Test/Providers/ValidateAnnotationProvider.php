@@ -14,7 +14,10 @@ trait ValidateAnnotationProvider
     public function okProvider()
     {
         return [
-            [ValidateFixture1::class, "required"]
+            [ValidateFixture1::class, "required1", "get"],
+            [ValidateFixture1::class, "required2", "post"],
+            [ValidateFixture1::class, "required3", "put"],
+            [ValidateFixture1::class, "required4", "delete"],
         ];
     }
 }
