@@ -4,6 +4,7 @@ namespace WebStream\Annotation;
 use WebStream\Annotation\Base\Annotation;
 use WebStream\Annotation\Base\IAnnotatable;
 use WebStream\Annotation\Base\IMethod;
+use WebStream\ClassLoader\ClassLoader;
 use WebStream\Container\Container;
 use WebStream\Exception\Extend\AnnotationException;
 use WebStream\Exception\Extend\InvalidRequestException;
@@ -52,9 +53,8 @@ class Validate extends Annotation implements IMethod
                 return ucfirst($matches[1]);
             }, $matches[1]));
             $classpath = null;
-            $classLoader = new ClassLoader();
-            $classLoader->inject('logger', $container->logger)
-                        ->inject('applicationInfo', $container->applicationInfo);
+            $classLoader = new ClassLoader($container->applicationInfo->applicationRoot);
+            $classLoader->inject('logger', $container->logger);
 
             // デフォルトバリデーションルールのパス
             $filepath = $container->applicationInfo->validateRuleDir . $className . ".php";
