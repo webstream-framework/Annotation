@@ -57,7 +57,7 @@ class Validate extends Annotation implements IMethod
             $classLoader->inject('logger', $container->logger);
 
             // デフォルトバリデーションルールのパス
-            $filepath = $container->applicationInfo->validateRuleDir . $className . ".php";
+            $filepath = $className . '.php';
             if (!$classLoader->import($filepath)) {
                 $loadList = $classLoader->load($className);
                 // バリデーションルールのクラス名が複数指定されている場合は適用判断不可能なのでエラー
@@ -70,13 +70,12 @@ class Validate extends Annotation implements IMethod
                     $errorMsg = "Invalid Validate class filepath: " . $filepath . "";
                     throw new ValidateException($errorMsg);
                 }
-
-                $classpath = $namespace . "\\" . $className;
-                $namespace = $this->getNamespace($loadList[0]);
             }
 
-            $root = $container->applicationInfo->applicationRoot;
-            $classpath = $classpath ?: $this->getNamespace($root . "/" . $filepath) . "\\" . $className;
+            $namespaces = $classLoader->getNamespaces($filepath);
+            if (count($namespaces) > 0) {
+                $classpath = array_shift($namespaces) . "\\" . $className;
+            }
 
             if (!class_exists($classpath)) {
                 $errorMsg = "Invalid Validate class's classpath: " . $classpath;
@@ -107,7 +106,7 @@ class Validate extends Annotation implements IMethod
                     $params = $container->request->delete;
                 }
             } else {
-                $errorMsg = "Unsupported method is specified: " . safetyOut($method);
+                $errorMsg = "Unsupported method is specified: " . $method;
                 throw new InvalidRequestException($errorMsg);
             }
 
@@ -116,7 +115,7 @@ class Validate extends Annotation implements IMethod
             $value = is_array($params) && array_key_exists($key, $params) ? $params[$key] : null;
 
             if (!$validateInstance->isValid($value, $rule)) {
-                $errorMsg = "Validation rule error. Rule is '$rule', value is " . (safetyOut($value) ?: "null");
+                $errorMsg = "Validation rule error. Rule is '$rule', value is " . ($value === null || $value === '' ? "empty" : "'${value}'");
                 throw new ValidateException($errorMsg);
             }
         } else {

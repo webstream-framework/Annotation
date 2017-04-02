@@ -74,7 +74,7 @@ class AnnotationReader
     /**
      * @var string 読み込み対象アノテーションクラスパス
      */
-    private $annotationClasspath;
+    // private $annotationClasspath;
 
     /**
      * @var string アクションメソッド
@@ -175,7 +175,6 @@ class AnnotationReader
             $this->initialize();
             throw new AnnotationException($e);
         }
-
     }
 
     public function readClass()

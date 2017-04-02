@@ -12,18 +12,33 @@ require_once dirname(__FILE__) . '/../Modules/Exception/Delegate/ExceptionDelega
 require_once dirname(__FILE__) . '/../Modules/ClassLoader/ClassLoader.php';
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
 require_once dirname(__FILE__) . '/../Modules/IO/File.php';
+require_once dirname(__FILE__) . '/../Modules/IO/InputStream.php';
+require_once dirname(__FILE__) . '/../Modules/IO/FileInputStream.php';
 require_once dirname(__FILE__) . '/../Base/Annotation.php';
 require_once dirname(__FILE__) . '/../Base/IAnnotatable.php';
 require_once dirname(__FILE__) . '/../Base/IMethod.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
-require_once dirname(__FILE__) . '/../Validate.php';
+require_once dirname(__FILE__) . '/../Attributes/Validate/Validate.php';
+require_once dirname(__FILE__) . '/../Attributes/Validate/Rule/IValidate.php';
+require_once dirname(__FILE__) . '/../Attributes/Validate/Rule/Required.php';
+require_once dirname(__FILE__) . '/../Attributes/Validate/Rule/Equal.php';
+require_once dirname(__FILE__) . '/../Attributes/Validate/Rule/Length.php';
 require_once dirname(__FILE__) . '/../Test/Providers/ValidateAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture1.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture2.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture3.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture4.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture5.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture6.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture7.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture8.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture9.php';
 
 use WebStream\Annotation\Validate;
 use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Test\Providers\ValidateAnnotationProvider;
 use WebStream\Container\Container;
+use WebStream\Exception\Extend\ValidateException;
 
 /**
  * ValidateAnnotationTest
@@ -37,31 +52,54 @@ class ValidateAnnotationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * 正常系
-     * バリデーションエラーが発生しないこと
+     * バリデーションルールが適用され、正常に処理されること
      * @test
      * @dataProvider okProvider
      */
-    public function okAnnotationTest($clazz, $action, $requestMethod)
+    public function okAnnotationTest($clazz, $action, $requestMethod, $params)
     {
         $instance = new $clazz();
         $container = new Container();
-        $container->requestMethod = $requestMethod;
+        $container->request = new Container();
+        $container->request->requestMethod = strtoupper($requestMethod);
+        $container->request->{$requestMethod} = $params;
         $container->applicationInfo = new Container();
-        $container->applicationInfo->applicationRoot = dirname(__FILE__) . '/../';
-        $container->applicationInfo->validateRuleDir = dirname(__FILE__) . '/../';
+        $container->applicationInfo->applicationRoot = dirname(__FILE__) . '/../Attributes/';
         $container->logger = new class() { function __call($name, $args) {} };
-        // $container->contentType = $contentType;
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Validate::class, $container);
         $annotaionReader->readMethod();
-        var_dump($annotaionReader->getException());
+        $this->assertNull($annotaionReader->getException());
+    }
 
-        // $this->assertArraySubset(
-        //     [Header::class => [
-        //         ['contentType' => $contentType]
-        //     ]],
-        //     $annotaionReader->getAnnotationInfoList()
-        // );
+    /**
+     * 異常系
+     * @test
+     * @dataProvider ngProvider
+     */
+    public function ngAnnotationTest($clazz, $action, $requestMethod, $params, $message)
+    {
+        $instance = new $clazz();
+        $container = new Container();
+        $container->request = new Container();
+        $container->request->requestMethod = strtoupper($requestMethod);
+        $container->request->{$requestMethod} = $params;
+        $container->applicationInfo = new Container();
+        $container->applicationInfo->applicationRoot = dirname(__FILE__) . '/../Attributes/';
+        $container->logger = new class() { function __call($name, $args) {} };
+        $annotaionReader = new AnnotationReader($instance);
+        $annotaionReader->setActionMethod($action);
+        $annotaionReader->readable(Validate::class, $container);
+        $annotaionReader->readMethod();
+
+        $exceptionMessage = null;
+        try {
+            $annotaionReader->getException()->raise();
+        } catch (ValidateException $e) {
+            $exceptionMessage = $e->getMessage();
+        }
+
+        $this->assertEquals($exceptionMessage, $message);
     }
 }
