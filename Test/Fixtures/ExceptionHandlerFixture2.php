@@ -2,7 +2,7 @@
 namespace WebStream\Annotation\Test\Fixtures;
 
 use WebStream\Annotation\Base\IAnnotatable;
-use WebStream\Annotation\ExceptionHandler;
+use WebStream\Annotation\Attributes\Exception\ExceptionHandler;
 use WebStream\Exception\ApplicationException;
 use WebStream\Exception\Extend\InvalidArgumentException;
 

@@ -21,7 +21,7 @@ require_once dirname(__FILE__) . '/../Reader/Extend/ExtendReader.php';
 require_once dirname(__FILE__) . '/../Reader/Extend/QueryExtendReader.php';
 require_once dirname(__FILE__) . '/../Container/AnnotationContainer.php';
 require_once dirname(__FILE__) . '/../Container/AnnotationListContainer.php';
-require_once dirname(__FILE__) . '/../Query.php';
+require_once dirname(__FILE__) . '/../Attributes/Database/Query.php';
 require_once dirname(__FILE__) . '/../Test/Providers/QueryAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/QueryFixture1.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/QueryFixture2.php';
@@ -29,7 +29,7 @@ require_once dirname(__FILE__) . '/../Test/Fixtures/QueryFixture3.php';
 
 use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Reader\Extend\QueryExtendReader;
-use WebStream\Annotation\Query;
+use WebStream\Annotation\Attributes\Database\Query;
 use WebStream\Annotation\Test\Providers\QueryAnnotationProvider;
 use WebStream\Container\Container;
 use WebStream\Exception\Extend\AnnotationException;

@@ -2,7 +2,7 @@
 namespace WebStream\Annotation\Test\Fixtures;
 
 use WebStream\Annotation\Base\IAnnotatable;
-use WebStream\Annotation\Database;
+use WebStream\Annotation\Attributes\Database\Database;
 
 /**
  * @Database(driver="WebStream\Annotation\Test\Fixtures\DatabaseDriverFixture", config="database.config.ini")

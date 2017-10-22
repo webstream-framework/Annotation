@@ -11,7 +11,7 @@ require_once dirname(__FILE__) . '/../Base/IAnnotatable.php';
 require_once dirname(__FILE__) . '/../Base/IMethods.php';
 require_once dirname(__FILE__) . '/../Base/IRead.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
-require_once dirname(__FILE__) . '/../Alias.php';
+require_once dirname(__FILE__) . '/../Attributes/Alias.php';
 require_once dirname(__FILE__) . '/../Test/Providers/AliasAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/AliasFixture1.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/AliasFixture2.php';
@@ -28,7 +28,7 @@ use WebStream\Exception\Extend\AnnotationException;
  * @since 2017/01/10
  * @version 0.7
  */
-class AliasAnnotationTest extends \PHPUnit_Framework_TestCase
+class AliasAnnotationTest extends \PHPUnit\Framework\TestCase
 {
     use AliasAnnotationProvider;
 

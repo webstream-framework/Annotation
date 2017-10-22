@@ -1,7 +1,8 @@
 <?php
 namespace WebStream\Annotation\Test\Providers;
 
-use WebStream\Annotation\Test\Fixtures\TemplateFixture1;
+use WebStream\Annotation\Test\Fixtures\AliasFixture1;
+use WebStream\Annotation\Test\Fixtures\AliasFixture2;
 
 /**
  * TemplateAnnotationProvider
@@ -9,12 +10,19 @@ use WebStream\Annotation\Test\Fixtures\TemplateFixture1;
  * @since 2017/01/10
  * @version 0.7
  */
-trait TemplateAnnotationProvider
+trait AliasAnnotationProvider
 {
     public function okProvider()
     {
         return [
-            [TemplateFixture1::class, "aliasMethod1", "originMethod1"]
+            [AliasFixture1::class, "aliasMethod1", "originMethod1"]
+        ];
+    }
+
+    public function ngProvider()
+    {
+        return [
+            [AliasFixture2::class, "aliasMethod1", "originMethod1"]
         ];
     }
 }

@@ -13,7 +13,7 @@ require_once dirname(__FILE__) . '/../Base/IRead.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
 require_once dirname(__FILE__) . '/../Reader/Extend/ExtendReader.php';
 require_once dirname(__FILE__) . '/../Reader/Extend/FilterExtendReader.php';
-require_once dirname(__FILE__) . '/../Filter.php';
+require_once dirname(__FILE__) . '/../Attributes/Filter.php';
 require_once dirname(__FILE__) . '/../Container/AnnotationContainer.php';
 require_once dirname(__FILE__) . '/../Container/AnnotationListContainer.php';
 require_once dirname(__FILE__) . '/../Test/Providers/FilterAnnotationProvider.php';
@@ -27,7 +27,7 @@ require_once dirname(__FILE__) . '/../Test/Fixtures/FilterFixture7.php';
 
 use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Reader\Extend\FilterExtendReader;
-use WebStream\Annotation\Filter;
+use WebStream\Annotation\Attributes\Filter;
 use WebStream\Annotation\Test\Providers\FilterAnnotationProvider;
 use WebStream\Exception\Delegate\ExceptionDelegator;
 use WebStream\Container\Container;

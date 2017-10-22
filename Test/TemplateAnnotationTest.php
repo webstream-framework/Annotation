@@ -11,12 +11,12 @@ require_once dirname(__FILE__) . '/../Base/IAnnotatable.php';
 require_once dirname(__FILE__) . '/../Base/IMethod.php';
 require_once dirname(__FILE__) . '/../Base/IRead.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
-require_once dirname(__FILE__) . '/../Template.php';
+require_once dirname(__FILE__) . '/../Attributes/Template.php';
 require_once dirname(__FILE__) . '/../Test/Providers/TemplateAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/TemplateFixture1.php';
 
 use WebStream\Annotation\Reader\AnnotationReader;
-use WebStream\Annotation\Template;
+use WebStream\Annotation\Attributes\Template;
 use WebStream\Annotation\Test\Providers\TemplateAnnotationProvider;
 use WebStream\Container\Container;
 use WebStream\Exception\Extend\AnnotationException;

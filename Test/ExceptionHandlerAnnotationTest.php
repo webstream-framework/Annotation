@@ -9,7 +9,7 @@ require_once dirname(__FILE__) . '/../Base/IMethod.php';
 require_once dirname(__FILE__) . '/../Base/IMethods.php';
 require_once dirname(__FILE__) . '/../Base/IRead.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
-require_once dirname(__FILE__) . '/../ExceptionHandler.php';
+require_once dirname(__FILE__) . '/../Attributes/Exception/ExceptionHandler.php';
 require_once dirname(__FILE__) . '/../Test/Providers/ExceptionHandlerAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ExceptionHandlerFixture1.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ExceptionHandlerFixture2.php';
@@ -17,7 +17,7 @@ require_once dirname(__FILE__) . '/../Test/Fixtures/ExceptionHandlerFixture3.php
 require_once dirname(__FILE__) . '/../Test/Fixtures/ExceptionHandlerFixture4.php';
 
 use WebStream\Annotation\Reader\AnnotationReader;
-use WebStream\Annotation\ExceptionHandler;
+use WebStream\Annotation\Attributes\Exception\ExceptionHandler;
 use WebStream\Annotation\Test\Providers\ExceptionHandlerAnnotationProvider;
 use WebStream\Container\Container;
 

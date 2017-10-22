@@ -18,11 +18,11 @@ require_once dirname(__FILE__) . '/../Base/Annotation.php';
 require_once dirname(__FILE__) . '/../Base/IAnnotatable.php';
 require_once dirname(__FILE__) . '/../Base/IMethod.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
-require_once dirname(__FILE__) . '/../Attributes/Validate/Validate.php';
-require_once dirname(__FILE__) . '/../Attributes/Validate/Rule/IValidate.php';
-require_once dirname(__FILE__) . '/../Attributes/Validate/Rule/Required.php';
-require_once dirname(__FILE__) . '/../Attributes/Validate/Rule/Equal.php';
-require_once dirname(__FILE__) . '/../Attributes/Validate/Rule/Length.php';
+require_once dirname(__FILE__) . '/../Attributes/Validate.php';
+require_once dirname(__FILE__) . '/../Attributes/Ext/ValidateRule/IValidate.php';
+require_once dirname(__FILE__) . '/../Attributes/Ext/ValidateRule/Required.php';
+require_once dirname(__FILE__) . '/../Attributes/Ext/ValidateRule/Equal.php';
+require_once dirname(__FILE__) . '/../Attributes/Ext/ValidateRule/Length.php';
 require_once dirname(__FILE__) . '/../Test/Providers/ValidateAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture1.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture2.php';
@@ -34,7 +34,7 @@ require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture7.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture8.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture9.php';
 
-use WebStream\Annotation\Validate;
+use WebStream\Annotation\Attributes\Validate;
 use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Test\Providers\ValidateAnnotationProvider;
 use WebStream\Container\Container;
@@ -75,6 +75,7 @@ class ValidateAnnotationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * 異常系
+     * バリデーションエラーが発生すること
      * @test
      * @dataProvider ngProvider
      */

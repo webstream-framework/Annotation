@@ -1,24 +1,22 @@
 <?php
-namespace WebStream\Annotation;
+namespace WebStream\Annotation\Attributes\Exception;
 
 use WebStream\Annotation\Base\Annotation;
 use WebStream\Annotation\Base\IAnnotatable;
-use WebStream\Annotation\Base\IMethods;
 use WebStream\Annotation\Base\IRead;
-use WebStream\Annotation\Container\AnnotationContainer;
+use WebStream\Annotation\Base\IMethods;
 use WebStream\Container\Container;
-use WebStream\Exception\Extend\AnnotationException;
 
 /**
- * Filter
+ * ExceptionHandler
  * @author Ryuichi TANAKA.
- * @since 2013/10/20
+ * @since 2013/11/22
  * @version 0.4
  *
  * @Annotation
  * @Target("METHOD")
  */
-class Filter extends Annotation implements IMethods, IRead
+class ExceptionHandler extends Annotation implements IMethods, IRead
 {
     /**
      * @var array<string> 注入アノテーション情報
@@ -52,16 +50,14 @@ class Filter extends Annotation implements IMethods, IRead
      */
     public function onMethodInject(IAnnotatable $instance, \ReflectionMethod $method, Container $container)
     {
-        $annotationContainer = new AnnotationContainer();
-        foreach ($this->injectAnnotation as $key => $value) {
-            $annotationContainer->{$key} = $value;
+        $exceptions = $this->injectAnnotation['value'];
+        if (!is_array($exceptions)) {
+            $exceptions = [$exceptions];
         }
 
         $this->readAnnotation = [
-            'classpath' => get_class($instance),
-            'action' => $container->action,
-            'refMethod' => $method,
-            'annotation' => $annotationContainer
+            'exceptions' => $exceptions,
+            'refMethod' => $method
         ];
     }
 }

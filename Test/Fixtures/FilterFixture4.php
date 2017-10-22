@@ -2,7 +2,7 @@
 namespace WebStream\Annotation\Test\Fixtures;
 
 use WebStream\Annotation\Base\IAnnotatable;
-use WebStream\Annotation\Filter;
+use WebStream\Annotation\Attributes\Filter;
 
 /**
  * before/afterフィルタでexceptが複数実行されること

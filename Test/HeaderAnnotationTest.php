@@ -14,11 +14,11 @@ require_once dirname(__FILE__) . '/../Base/IAnnotatable.php';
 require_once dirname(__FILE__) . '/../Base/IMethod.php';
 require_once dirname(__FILE__) . '/../Base/IRead.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
-require_once dirname(__FILE__) . '/../Header.php';
+require_once dirname(__FILE__) . '/../Attributes/Header/Header.php';
 require_once dirname(__FILE__) . '/../Test/Providers/HeaderAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/HeaderFixture1.php';
 
-use WebStream\Annotation\Header;
+use WebStream\Annotation\Attributes\Header\Header;
 use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Test\Providers\HeaderAnnotationProvider;
 use WebStream\Container\Container;

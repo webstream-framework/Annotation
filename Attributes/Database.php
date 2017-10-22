@@ -1,5 +1,5 @@
 <?php
-namespace WebStream\Annotation;
+namespace WebStream\Annotation\Attributes\Database;
 
 use WebStream\Annotation\Base\Annotation;
 use WebStream\Annotation\Base\IAnnotatable;

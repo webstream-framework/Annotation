@@ -13,14 +13,14 @@ require_once dirname(__FILE__) . '/../Base/IAnnotatable.php';
 require_once dirname(__FILE__) . '/../Base/IClass.php';
 require_once dirname(__FILE__) . '/../Base/IRead.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
-require_once dirname(__FILE__) . '/../Database.php';
+require_once dirname(__FILE__) . '/../Attributes/Database/Database.php';
 require_once dirname(__FILE__) . '/../Test/Providers/DatabaseAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/DatabaseFixture1.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/DatabaseFixture2.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/DatabaseDriverFixture.php';
 
 use WebStream\Annotation\Reader\AnnotationReader;
-use WebStream\Annotation\Database;
+use WebStream\Annotation\Attributes\Database\Database;
 use WebStream\Annotation\Test\Providers\DatabaseAnnotationProvider;
 use WebStream\Container\Container;
 use WebStream\Exception\Extend\AnnotationException;

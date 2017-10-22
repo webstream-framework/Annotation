@@ -2,7 +2,7 @@
 namespace WebStream\Annotation\Test\Fixtures;
 
 use WebStream\Annotation\Base\IAnnotatable;
-use WebStream\Annotation\Validate;
+use WebStream\Annotation\Attributes\Validate;
 
 class ValidateFixture4 implements IAnnotatable
 {
