@@ -3,4 +3,8 @@ vendor
 composer.lock
 sandbox
 Rakefile
-Modules/**/scrutinizer.yml
+
+# ClassLoader module
+Modules/ClassLoader/*
+!Modules/ClassLoader/Modules
+!Modules/ClassLoader/ClassLoader.php
