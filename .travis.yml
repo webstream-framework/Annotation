@@ -6,16 +6,19 @@ services:
 language: php
 
 before_script:
-  - if [[ $PHP_SAPI = 'phpdbg' ]]; then echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini ; fi
+  - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - composer install
   - mkdir -p build/logs
 
 script:
-  - docker run -v /home/travis/build/webstream-framework/Annotation:/workspace/ webstream/php-alpine vendor/bin/phpunit --configuration phpunit.xml
+  - docker run -v /home/travis/build/webstream-framework/Annotation:/workspace/ webstream/php-alpine phpdbg -qrr vendor/bin/phpunit --configuration phpunit.xml --coverage-clover=coverage.clover
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+
+after_success
+  - php vendor/bin/coveralls -v -x coverage.clover
 
 php:
   - 7.0
