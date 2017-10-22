@@ -27,7 +27,7 @@ use WebStream\Exception\Extend\AnnotationException;
  * @since 2017/01/14
  * @version 0.7
  */
-class TemplateAnnotationTest extends \PHPUnit_Framework_TestCase
+class TemplateAnnotationTest extends \PHPUnit\Framework\TestCase
 {
     use TemplateAnnotationProvider;
 
@@ -42,6 +42,11 @@ class TemplateAnnotationTest extends \PHPUnit_Framework_TestCase
         $instance = new $clazz();
         $container = new Container();
         $container->action = $action;
+        $container->engine = [
+            'basic' => "WebStream\Template\Basic",
+            'twig' => "WebStream\Template\Twig"
+        ];
+        $container->logger = new class() { function __call($name, $args) {} };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Template::class, $container);
@@ -65,6 +70,11 @@ class TemplateAnnotationTest extends \PHPUnit_Framework_TestCase
         $instance = new $clazz();
         $container = new Container();
         $container->action = $action;
+        $container->engine = [
+            'basic' => "WebStream\Template\Basic",
+            'twig' => "WebStream\Template\Twig"
+        ];
+        $container->logger = new class() { function __call($name, $args) {} };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Template::class, $container);

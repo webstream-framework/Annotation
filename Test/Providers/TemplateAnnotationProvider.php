@@ -16,25 +16,25 @@ trait TemplateAnnotationProvider
         return [
             [TemplateFixture1::class, "action1", [[
                 'filename' => "test.tmpl",
-                'engine' => "WebStream\Annotation\Basic"
+                'engine' => "WebStream\Template\Basic"
             ]]],
             [TemplateFixture1::class, "action2", [[
                 'filename' => "test.tmpl",
-                'engine' => "WebStream\Annotation\Basic"
+                'engine' => "WebStream\Template\Basic"
             ]]],
             [TemplateFixture1::class, "action3", [[
                 'filename' => "test.tmpl",
-                'engine' => "WebStream\Annotation\Twig",
+                'engine' => "WebStream\Template\Twig",
                 'debug' => false
             ]]],
             [TemplateFixture1::class, "action4", [[
                 'filename' => "test.tmpl",
-                'engine' => "WebStream\Annotation\Twig",
+                'engine' => "WebStream\Template\Twig",
                 'debug' => true
             ]]],
             [TemplateFixture1::class, "action5", [[
                 'filename' => "test.tmpl",
-                'engine' => "WebStream\Annotation\Basic",
+                'engine' => "WebStream\Template\Basic",
                 'cacheTime' => 10
             ]]]
         ];

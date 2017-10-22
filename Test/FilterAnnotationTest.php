@@ -38,7 +38,7 @@ use WebStream\Container\Container;
  * @since 2017/01/09
  * @version 0.7
  */
-class FilterAnnotationTest extends \PHPUnit_Framework_TestCase
+class FilterAnnotationTest extends \PHPUnit\Framework\TestCase
 {
     use FilterAnnotationProvider;
 

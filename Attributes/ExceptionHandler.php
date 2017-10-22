@@ -1,5 +1,5 @@
 <?php
-namespace WebStream\Annotation\Attributes\Exception;
+namespace WebStream\Annotation\Attributes;
 
 use WebStream\Annotation\Base\Annotation;
 use WebStream\Annotation\Base\IAnnotatable;

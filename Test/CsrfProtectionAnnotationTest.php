@@ -10,12 +10,12 @@ require_once dirname(__FILE__) . '/../Base/Annotation.php';
 require_once dirname(__FILE__) . '/../Base/IAnnotatable.php';
 require_once dirname(__FILE__) . '/../Base/IMethod.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
-require_once dirname(__FILE__) . '/../CsrfProtection.php';
+require_once dirname(__FILE__) . '/../Attributes/CsrfProtection.php';
 require_once dirname(__FILE__) . '/../Test/Providers/CsrfProtectionAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/CsrfProtectionFixture1.php';
 
 use WebStream\Annotation\Reader\AnnotationReader;
-use WebStream\Annotation\CsrfProtection;
+use WebStream\Annotation\Attributes\CsrfProtection;
 use WebStream\Annotation\Test\Providers\CsrfProtectionAnnotationProvider;
 use WebStream\Annotation\Test\Fixtures\DummySession;
 use WebStream\Container\Container;
@@ -26,7 +26,7 @@ use WebStream\Container\Container;
  * @since 2017/01/11
  * @version 0.7
  */
-class CsrfProtectionAnnotationTest extends \PHPUnit_Framework_TestCase
+class CsrfProtectionAnnotationTest extends \PHPUnit\Framework\TestCase
 {
     use CsrfProtectionAnnotationProvider;
 

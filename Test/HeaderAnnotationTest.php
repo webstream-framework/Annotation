@@ -14,11 +14,11 @@ require_once dirname(__FILE__) . '/../Base/IAnnotatable.php';
 require_once dirname(__FILE__) . '/../Base/IMethod.php';
 require_once dirname(__FILE__) . '/../Base/IRead.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
-require_once dirname(__FILE__) . '/../Attributes/Header/Header.php';
+require_once dirname(__FILE__) . '/../Attributes/Header.php';
 require_once dirname(__FILE__) . '/../Test/Providers/HeaderAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/HeaderFixture1.php';
 
-use WebStream\Annotation\Attributes\Header\Header;
+use WebStream\Annotation\Attributes\Header;
 use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Test\Providers\HeaderAnnotationProvider;
 use WebStream\Container\Container;
@@ -29,7 +29,7 @@ use WebStream\Container\Container;
  * @since 2017/01/09
  * @version 0.7
  */
-class HeaderAnnotationTest extends \PHPUnit_Framework_TestCase
+class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
 {
     use HeaderAnnotationProvider;
 
@@ -45,6 +45,7 @@ class HeaderAnnotationTest extends \PHPUnit_Framework_TestCase
         $container = new Container();
         $container->requestMethod = $requestMethod;
         $container->contentType = $contentType;
+        $container->logger = new class() { function __call($name, $args) {} };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Header::class, $container);
@@ -71,6 +72,7 @@ class HeaderAnnotationTest extends \PHPUnit_Framework_TestCase
         $container = new Container();
         $container->requestMethod = $requestMethod;
         $container->contentType = "html";
+        $container->logger = new class() { function __call($name, $args) {} };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Header::class, $container);
@@ -94,6 +96,7 @@ class HeaderAnnotationTest extends \PHPUnit_Framework_TestCase
         $container = new Container();
         $container->requestMethod = $requestMethod;
         $container->contentType = "html";
+        $container->logger = new class() { function __call($name, $args) {} };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Header::class, $container);

@@ -2,7 +2,7 @@
 namespace WebStream\Annotation\Test\Fixtures;
 
 use WebStream\Annotation\Base\IAnnotatable;
-use WebStream\Annotation\Template;
+use WebStream\Annotation\Attributes\Template;
 
 class TemplateFixture1 implements IAnnotatable
 {

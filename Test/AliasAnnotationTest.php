@@ -17,7 +17,7 @@ require_once dirname(__FILE__) . '/../Test/Fixtures/AliasFixture1.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/AliasFixture2.php';
 
 use WebStream\Annotation\Reader\AnnotationReader;
-use WebStream\Annotation\Alias;
+use WebStream\Annotation\Attributes\Alias;
 use WebStream\Annotation\Test\Providers\AliasAnnotationProvider;
 use WebStream\Container\Container;
 use WebStream\Exception\Extend\AnnotationException;

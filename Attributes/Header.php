@@ -1,5 +1,5 @@
 <?php
-namespace WebStream\Annotation\Attributes\Header;
+namespace WebStream\Annotation\Attributes;
 
 use WebStream\Annotation\Base\Annotation;
 use WebStream\Annotation\Base\IAnnotatable;
@@ -85,6 +85,7 @@ class Header extends Annotation implements IMethod, IRead
     public function onMethodInject(IAnnotatable $instance, \ReflectionMethod $method, Container $container)
     {
         $allowMethods = $this->injectAnnotation['allowMethod'];
+        $logger = $container->logger;
 
         // 指定無しの場合はチェックしない(すべてのメソッドを許可する)
         if ($allowMethods !== null) {
@@ -106,7 +107,7 @@ class Header extends Annotation implements IMethod, IRead
                 throw new InvalidRequestException($errorMsg);
             }
 
-            $this->logger->debug("Accepted method '" . implode(',', $allowMethods) . "'");
+            $logger->debug("Accepted method '" . implode(',', $allowMethods) . "'");
         }
 
         $ext = $this->injectAnnotation['contentType'] ?: 'html';
@@ -126,6 +127,6 @@ class Header extends Annotation implements IMethod, IRead
         }
 
         $this->readAnnotation['contentType'] = $ext;
-        $this->logger->debug("Accepted contentType '$ext'");
+        $logger->debug("Accepted contentType '$ext'");
     }
 }

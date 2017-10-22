@@ -1,5 +1,5 @@
 <?php
-namespace WebStream\Annotation;
+namespace WebStream\Annotation\Attributes;
 
 use WebStream\Annotation\Base\Annotation;
 use WebStream\Annotation\Base\IAnnotatable;
@@ -55,6 +55,7 @@ class Template extends Annotation implements IMethod, IRead
         $engine = array_key_exists('engine', $this->injectAnnotation) ? $this->injectAnnotation['engine'] : "basic";
         $debug = array_key_exists('debug', $this->injectAnnotation) ? $this->injectAnnotation['debug'] : false;
         $cacheTime = array_key_exists('cacheTime', $this->injectAnnotation) ? $this->injectAnnotation['cacheTime'] : null;
+        $logger = $container->logger;
 
         if (PHP_OS === "WIN32" || PHP_OS === "WINNT") {
             if (preg_match("/^.*[. ]|.*[\p{Cntrl}\/:*?\"<>|].*|(?i:CON|PRN|AUX|CLOCK\$|NUL|COM[1-9]|LPT[1-9])(?:[.].+)?$/", $filename)) {
@@ -80,11 +81,11 @@ class Template extends Annotation implements IMethod, IRead
                 $debug = false;
             }
             $this->readAnnotation['filename'] = $filename;
-            $this->readAnnotation['engine'] = Twig::class;
+            $this->readAnnotation['engine'] = $container->engine['twig'];
             $this->readAnnotation['debug'] = $debug;
 
             if ($cacheTime !== null) {
-                $this->logger->warn("'cacheTime' attribute is not used in Twig template.");
+                $logger->warn("'cacheTime' attribute is not used in Twig template.");
             }
         } elseif ($engine === "basic") {
             if ($cacheTime !== null) {
@@ -104,17 +105,17 @@ class Template extends Annotation implements IMethod, IRead
                     $errorMsg = "Expire value is out of integer range: @Template(cacheTime=" . strval($cacheTime) . ")";
                     throw new AnnotationException($errorMsg);
                 } elseif ($cacheTime >= PHP_INT_MAX) {
-                    $this->logger->warn("Expire value converted the maximum of PHP Integer.");
+                    $logger->warn("Expire value converted the maximum of PHP Integer.");
                 }
 
                 $this->readAnnotation['cacheTime'] = $cacheTime;
             }
 
             $this->readAnnotation['filename'] = $filename;
-            $this->readAnnotation['engine'] = Basic::class;
+            $this->readAnnotation['engine'] = $container->engine['basic'];
 
             if ($debug !== null) {
-                $this->logger->warn("'debug' attribute is not used in Basic template.");
+                $logger->warn("'debug' attribute is not used in Basic template.");
             }
         } else {
             $errorMsg = "Invalid 'engine' attribute of @Template('$filename').";

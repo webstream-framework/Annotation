@@ -9,7 +9,7 @@ require_once dirname(__FILE__) . '/../Base/IMethod.php';
 require_once dirname(__FILE__) . '/../Base/IMethods.php';
 require_once dirname(__FILE__) . '/../Base/IRead.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
-require_once dirname(__FILE__) . '/../Attributes/Exception/ExceptionHandler.php';
+require_once dirname(__FILE__) . '/../Attributes/ExceptionHandler.php';
 require_once dirname(__FILE__) . '/../Test/Providers/ExceptionHandlerAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ExceptionHandlerFixture1.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ExceptionHandlerFixture2.php';
@@ -17,7 +17,7 @@ require_once dirname(__FILE__) . '/../Test/Fixtures/ExceptionHandlerFixture3.php
 require_once dirname(__FILE__) . '/../Test/Fixtures/ExceptionHandlerFixture4.php';
 
 use WebStream\Annotation\Reader\AnnotationReader;
-use WebStream\Annotation\Attributes\Exception\ExceptionHandler;
+use WebStream\Annotation\Attributes\ExceptionHandler;
 use WebStream\Annotation\Test\Providers\ExceptionHandlerAnnotationProvider;
 use WebStream\Container\Container;
 
@@ -27,7 +27,7 @@ use WebStream\Container\Container;
  * @since 2017/01/09
  * @version 0.7
  */
-class ExceptionHandlerAnnotationTest extends \PHPUnit_Framework_TestCase
+class ExceptionHandlerAnnotationTest extends \PHPUnit\Framework\TestCase
 {
     use ExceptionHandlerAnnotationProvider;
 

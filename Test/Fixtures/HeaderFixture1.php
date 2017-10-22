@@ -2,7 +2,7 @@
 namespace WebStream\Annotation\Test\Fixtures;
 
 use WebStream\Annotation\Base\IAnnotatable;
-use WebStream\Annotation\Attributes\Header\Header;
+use WebStream\Annotation\Attributes\Header;
 
 class HeaderFixture1 implements IAnnotatable
 {

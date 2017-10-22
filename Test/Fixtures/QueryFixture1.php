@@ -2,7 +2,7 @@
 namespace WebStream\Annotation\Test\Fixtures;
 
 use WebStream\Annotation\Base\IAnnotatable;
-use WebStream\Annotation\Attributes\Database\Query;
+use WebStream\Annotation\Attributes\Query;
 
 class QueryFixture1 implements IAnnotatable
 {

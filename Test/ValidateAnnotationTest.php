@@ -20,9 +20,6 @@ require_once dirname(__FILE__) . '/../Base/IMethod.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
 require_once dirname(__FILE__) . '/../Attributes/Validate.php';
 require_once dirname(__FILE__) . '/../Attributes/Ext/ValidateRule/IValidate.php';
-require_once dirname(__FILE__) . '/../Attributes/Ext/ValidateRule/Required.php';
-require_once dirname(__FILE__) . '/../Attributes/Ext/ValidateRule/Equal.php';
-require_once dirname(__FILE__) . '/../Attributes/Ext/ValidateRule/Length.php';
 require_once dirname(__FILE__) . '/../Test/Providers/ValidateAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture1.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture2.php';
@@ -46,7 +43,7 @@ use WebStream\Exception\Extend\ValidateException;
  * @since 2017/01/20
  * @version 0.7
  */
-class ValidateAnnotationTest extends \PHPUnit_Framework_TestCase
+class ValidateAnnotationTest extends \PHPUnit\Framework\TestCase
 {
     use ValidateAnnotationProvider;
 

@@ -13,14 +13,14 @@ require_once dirname(__FILE__) . '/../Base/IAnnotatable.php';
 require_once dirname(__FILE__) . '/../Base/IClass.php';
 require_once dirname(__FILE__) . '/../Base/IRead.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
-require_once dirname(__FILE__) . '/../Attributes/Database/Database.php';
+require_once dirname(__FILE__) . '/../Attributes/Database.php';
 require_once dirname(__FILE__) . '/../Test/Providers/DatabaseAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/DatabaseFixture1.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/DatabaseFixture2.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/DatabaseDriverFixture.php';
 
 use WebStream\Annotation\Reader\AnnotationReader;
-use WebStream\Annotation\Attributes\Database\Database;
+use WebStream\Annotation\Attributes\Database;
 use WebStream\Annotation\Test\Providers\DatabaseAnnotationProvider;
 use WebStream\Container\Container;
 use WebStream\Exception\Extend\AnnotationException;
@@ -31,7 +31,7 @@ use WebStream\Exception\Extend\AnnotationException;
  * @since 2017/01/14
  * @version 0.7
  */
-class DatabaseAnnotationTest extends \PHPUnit_Framework_TestCase
+class DatabaseAnnotationTest extends \PHPUnit\Framework\TestCase
 {
     use DatabaseAnnotationProvider;
 

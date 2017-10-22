@@ -2,7 +2,7 @@
 namespace WebStream\Annotation\Test\Fixtures;
 
 use WebStream\Annotation\Base\IAnnotatable;
-use WebStream\Annotation\CsrfProtection;
+use WebStream\Annotation\Attributes\CsrfProtection;
 
 /**
  * CSRFチェックできること

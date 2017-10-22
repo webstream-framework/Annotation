@@ -2,7 +2,7 @@
 namespace WebStream\Annotation\Test\Fixtures;
 
 use WebStream\Annotation\Base\IAnnotatable;
-use WebStream\Annotation\Alias;
+use WebStream\Annotation\Attributes\Alias;
 
 /**
  * メソッドエイリアスと同名の実メソッドが定義されている場合
