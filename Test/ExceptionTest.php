@@ -30,7 +30,7 @@ use WebStream\Exception\Test\Providers\ExceptionProvider;
 * @since 2017/01/07
 * @version 0.7
  */
-class ExceptionTest extends \PHPUnit_Framework_TestCase
+class ExceptionTest extends \PHPUnit\Framework\TestCase
 {
     use ExceptionProvider;
 

@@ -24,7 +24,7 @@ use WebStream\Exception\Test\Providers\ExceptionDelegatorProvider;
 * @since 2017/01/07
 * @version 0.7
  */
-class ExceptionDelegatorTest extends \PHPUnit_Framework_TestCase
+class ExceptionDelegatorTest extends \PHPUnit\Framework\TestCase
 {
     use ExceptionDelegatorProvider;
 
