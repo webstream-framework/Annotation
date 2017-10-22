@@ -7,9 +7,10 @@
   </testsuites>
   <filter>
     <whitelist addUncoveredFilesFromWhitelist="true">
-      <directory>Driver</directory>
+      <directory suffix=".php">./</directory>
       <exclude>
-        <file>Driver/CacheDriverFactory.php</file>
+        <directory>./Test</directory>
+        <directory>./Modules</directory>
       </exclude>
     </whitelist>
   </filter>
