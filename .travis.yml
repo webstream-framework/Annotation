@@ -24,7 +24,8 @@ before_script:
   - mkdir -p build/logs
 
 script:
-  - docker run -v /home/travis/build/webstream-framework/Annotation:/workspace/ webstream/php-alpine phpdbg -qrr vendor/bin/phpunit --configuration phpunit.xml --coverage-clover=coverage.clover
+  - if [[ $VERSION = 'latest' ]]; then docker run -v /home/travis/build/webstream-framework/Annotation:/workspace/ webstream/php-alpine phpdbg -qrr vendor/bin/phpunit --configuration phpunit.xml --coverage-clover=coverage.clover; fi
+  - if [[ $VERSION != 'latest' ]]; then docker run -v /home/travis/build/webstream-framework/Annotation:/workspace/ webstream/php-alpine phpdbg -qrr vendor/bin/phpunit --configuration phpunit.xml; fi
 
 after_script:
   - if [[ $VERSION = 'latest' ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
