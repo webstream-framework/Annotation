@@ -3,3 +3,4 @@ vendor
 composer.lock
 sandbox
 Rakefile
+Modules/**/scrutinizer.yml
