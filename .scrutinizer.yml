@@ -14,6 +14,7 @@ build:
 filter:
     excluded_paths:
         - 'Test/*'
+        - 'Modules/*'
 tools:
     external_code_coverage:
         timeout: 2400
@@ -27,6 +28,7 @@ tools:
         filter:
             excluded_paths:
                 - 'Test/*'
+                - 'Modules/*'
     php_mess_detector:
         config:
             rulesets:
@@ -40,3 +42,4 @@ tools:
         filter:
             excluded_paths:
                 - 'Test/*'
+                - 'Modules/*'
