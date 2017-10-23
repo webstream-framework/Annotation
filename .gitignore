@@ -5,6 +5,9 @@ sandbox
 Rakefile
 
 # ClassLoader module
-Modules/ClassLoader/*
-!Modules/ClassLoader/Modules
-!Modules/ClassLoader/ClassLoader.php
+Modules/**/*.yml
+Modules/**/composer.json
+Modules/**/phpunit.xml
+Modules/**/README.md
+Modules/**/.gitignore
+Modules/**/Test/*
