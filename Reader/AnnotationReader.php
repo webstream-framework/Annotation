@@ -72,11 +72,6 @@ class AnnotationReader
     private $exception;
 
     /**
-     * @var string 読み込み対象アノテーションクラスパス
-     */
-    // private $annotationClasspath;
-
-    /**
      * @var string アクションメソッド
      */
     private $actionMethod;
@@ -100,7 +95,6 @@ class AnnotationReader
         $this->readableMap = [];
         $this->extendReaderMap = [];
         $this->annotationInfoList = [];
-        $this->annotationInfoExtendList = [];
     }
 
     /**
@@ -291,9 +285,6 @@ class AnnotationReader
 
             $refClass = $refClass->getParentClass();
         }
-
-        // 拡張リーダー処理結果をクリアする
-        $this->annotationInfoExtendList = [];
     }
 
     /**
