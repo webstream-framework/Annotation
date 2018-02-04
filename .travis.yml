@@ -20,6 +20,7 @@ matrix:
 
 before_script:
   - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - if [[ $VERSION = '7.0' ]]; composer config platform.php 7.0; fi
   - composer install
   - mkdir -p build/logs
 
