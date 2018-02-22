@@ -4,6 +4,7 @@ namespace WebStream\Annotation\Reader;
 use WebStream\Annotation\Base\IAnnotatable;
 use WebStream\Annotation\Base\Annotation;
 use WebStream\Annotation\Base\IClass;
+use WebStream\Annotation\Base\IExtension;
 use WebStream\Annotation\Base\IMethod;
 use WebStream\Annotation\Base\IMethods;
 use WebStream\Annotation\Base\IProperty;
@@ -184,7 +185,16 @@ class AnnotationReader
                     }
 
                     $key = get_class($annotation);
-                    $container = array_key_exists($key, $this->readableMap) ? $this->readableMap[$key] : $this->defaultContainer;
+                    $container = null;
+                    if (!array_key_exists($key, $this->readableMap)) {
+                        if ($annotation instanceof IExtension) {
+                            $container = $this->defaultContainer;
+                        } else {
+                            continue;
+                        }
+                    } else {
+                        $container = $this->readableMap[$key];
+                    }
 
                     try {
                         $annotation->onClassInject($this->instance, $refClass, $container);
@@ -244,7 +254,16 @@ class AnnotationReader
 
                     // 読み込み可能なアノテーション以外は読み込まない
                     $key = get_class($annotation);
-                    $container = array_key_exists($key, $this->readableMap) ? $this->readableMap[$key] : $this->defaultContainer;
+                    $container = null;
+                    if (!array_key_exists($key, $this->readableMap)) {
+                        if ($annotation instanceof IExtension) {
+                            $container = $this->defaultContainer;
+                        } else {
+                            continue;
+                        }
+                    } else {
+                        $container = $this->readableMap[$key];
+                    }
 
                     try {
                         $annotation->onMethodInject($this->instance, $refMethod, $container);
@@ -298,7 +317,16 @@ class AnnotationReader
                     }
 
                     $key = get_class($annotation);
-                    $container = array_key_exists($key, $this->readableMap) ? $this->readableMap[$key] : $this->defaultContainer;
+                    $container = null;
+                    if (!array_key_exists($key, $this->readableMap)) {
+                        if ($annotation instanceof IExtension) {
+                            $container = $this->defaultContainer;
+                        } else {
+                            continue;
+                        }
+                    } else {
+                        $container = $this->readableMap[$key];
+                    }
 
                     try {
                         $annotation->onPropertyInject($this->instance, $refProperty, $container);
