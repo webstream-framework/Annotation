@@ -10,6 +10,7 @@ use WebStream\Annotation\Test\Fixtures\ValidateFixture6;
 use WebStream\Annotation\Test\Fixtures\ValidateFixture7;
 use WebStream\Annotation\Test\Fixtures\ValidateFixture8;
 use WebStream\Annotation\Test\Fixtures\ValidateFixture9;
+use WebStream\Annotation\Test\Fixtures\ValidateFixture10;
 
 /**
  * ValidateAnnotationProvider
@@ -57,7 +58,11 @@ trait ValidateAnnotationProvider
             [ValidateFixture9::class, "range1", "get", ['test' => 3]],
             [ValidateFixture9::class, "range2", "post", ['test' => 3]],
             [ValidateFixture9::class, "range3", "put", ['test' => 3]],
-            [ValidateFixture9::class, "range4", "delete", ['test' => 3]]
+            [ValidateFixture9::class, "range4", "delete", ['test' => 3]],
+            [ValidateFixture10::class, "regexp1", "get", ['test' => 123]],
+            [ValidateFixture10::class, "regexp2", "post", ['test' => 123]],
+            [ValidateFixture10::class, "regexp3", "put", ['test' => 123]],
+            [ValidateFixture10::class, "regexp4", "delete", ['test' => 123]]
         ];
     }
 
@@ -99,7 +104,11 @@ trait ValidateAnnotationProvider
             [ValidateFixture9::class, "range1", "get", ['test' => 0], "Validation rule error. Rule is 'range[1..5]', value is '0'"],
             [ValidateFixture9::class, "range2", "post", ['test' => 0], "Validation rule error. Rule is 'range[1..5]', value is '0'"],
             [ValidateFixture9::class, "range3", "put", ['test' => 0], "Validation rule error. Rule is 'range[1..5]', value is '0'"],
-            [ValidateFixture9::class, "range4", "delete", ['test' => 0], "Validation rule error. Rule is 'range[1..5]', value is '0'"]
+            [ValidateFixture9::class, "range4", "delete", ['test' => 0], "Validation rule error. Rule is 'range[1..5]', value is '0'"],
+            [ValidateFixture10::class, "regexp1", "get", ['test' => 'a'], "Validation rule error. Rule is 'regexp[/\d+/]', value is 'a'"],
+            [ValidateFixture10::class, "regexp2", "post", ['test' => 'a'], "Validation rule error. Rule is 'regexp[/\d+/]', value is 'a'"],
+            [ValidateFixture10::class, "regexp3", "put", ['test' => 'a'], "Validation rule error. Rule is 'regexp[/\d+/]', value is 'a'"],
+            [ValidateFixture10::class, "regexp4", "delete", ['test' => 'a'], "Validation rule error. Rule is 'regexp[/\d+/]', value is 'a'"]
         ];
     }
 }

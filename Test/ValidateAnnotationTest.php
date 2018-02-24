@@ -29,6 +29,7 @@ require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture6.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture7.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture8.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture9.php';
+require_once dirname(__FILE__) . '/../Test/Fixtures/ValidateFixture10.php';
 
 use WebStream\Annotation\Attributes\Validate;
 use WebStream\Annotation\Reader\AnnotationReader;
