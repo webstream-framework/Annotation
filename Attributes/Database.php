@@ -1,4 +1,5 @@
 <?php
+
 namespace WebStream\Annotation\Attributes;
 
 use WebStream\Annotation\Base\Annotation;

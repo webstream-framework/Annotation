@@ -1,4 +1,5 @@
 <?php
+
 namespace WebStream\Annotation\Test;
 
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
@@ -20,7 +21,6 @@ use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Attributes\Alias;
 use WebStream\Annotation\Test\Providers\AliasAnnotationProvider;
 use WebStream\Container\Container;
-use WebStream\Exception\Extend\AnnotationException;
 
 /**
  * AliasAnnotationTest

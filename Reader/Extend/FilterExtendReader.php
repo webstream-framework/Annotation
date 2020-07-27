@@ -1,4 +1,5 @@
 <?php
+
 namespace WebStream\Annotation\Reader\Extend;
 
 use WebStream\Container\Container;

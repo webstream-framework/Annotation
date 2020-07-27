@@ -1,4 +1,5 @@
 <?php
+
 namespace WebStream\Annotation\Test;
 
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
@@ -22,7 +23,6 @@ use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Attributes\Database;
 use WebStream\Annotation\Test\Providers\DatabaseAnnotationProvider;
 use WebStream\Container\Container;
-use WebStream\Exception\Extend\AnnotationException;
 
 /**
  * DatabaseAnnotationTest

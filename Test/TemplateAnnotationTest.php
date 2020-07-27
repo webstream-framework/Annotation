@@ -1,4 +1,5 @@
 <?php
+
 namespace WebStream\Annotation\Test;
 
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
@@ -18,7 +19,6 @@ use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Attributes\Template;
 use WebStream\Annotation\Test\Providers\TemplateAnnotationProvider;
 use WebStream\Container\Container;
-use WebStream\Exception\Extend\AnnotationException;
 
 /**
  * TemplateAnnotationTest
@@ -45,7 +45,12 @@ class TemplateAnnotationTest extends \PHPUnit\Framework\TestCase
             'basic' => "WebStream\Template\Basic",
             'twig' => "WebStream\Template\Twig"
         ];
-        $container->logger = new class() { function __call($name, $args) {} };
+        $container->logger = new class ()
+        {
+            function __call($name, $args)
+            {
+            }
+        };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Template::class, $container);
@@ -73,7 +78,12 @@ class TemplateAnnotationTest extends \PHPUnit\Framework\TestCase
             'basic' => "WebStream\Template\Basic",
             'twig' => "WebStream\Template\Twig"
         ];
-        $container->logger = new class() { function __call($name, $args) {} };
+        $container->logger = new class ()
+        {
+            function __call($name, $args)
+            {
+            }
+        };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Template::class, $container);

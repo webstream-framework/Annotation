@@ -1,4 +1,5 @@
 <?php
+
 namespace WebStream\Annotation\Test;
 
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
@@ -14,7 +15,6 @@ require_once dirname(__FILE__) . '/../Test/Fixtures/CustomAnnotation.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/CustomAnnotationFixture1.php';
 
 use WebStream\Annotation\Reader\AnnotationReader;
-use WebStream\Annotation\Test\Fixtures\CustomAnnotation;
 use WebStream\Annotation\Test\Fixtures\CustomAnnotationFixture1;
 
 /**

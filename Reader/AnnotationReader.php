@@ -1,8 +1,8 @@
 <?php
+
 namespace WebStream\Annotation\Reader;
 
 use WebStream\Annotation\Base\IAnnotatable;
-use WebStream\Annotation\Base\Annotation;
 use WebStream\Annotation\Base\IClass;
 use WebStream\Annotation\Base\IExtension;
 use WebStream\Annotation\Base\IMethod;

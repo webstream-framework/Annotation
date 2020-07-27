@@ -1,4 +1,5 @@
 <?php
+
 namespace WebStream\Annotation\Test;
 
 require_once dirname(__FILE__) . '/../Modules/Exception/ApplicationException.php';
@@ -44,7 +45,12 @@ class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
         $container = new Container();
         $container->requestMethod = $requestMethod;
         $container->contentType = $contentType;
-        $container->logger = new class() { function __call($name, $args) {} };
+        $container->logger = new class ()
+        {
+            function __call($name, $args)
+            {
+            }
+        };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Header::class, $container);
@@ -71,7 +77,12 @@ class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
         $container = new Container();
         $container->requestMethod = $requestMethod;
         $container->contentType = "html";
-        $container->logger = new class() { function __call($name, $args) {} };
+        $container->logger = new class ()
+        {
+            function __call($name, $args)
+            {
+            }
+        };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Header::class, $container);
@@ -95,7 +106,12 @@ class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
         $container = new Container();
         $container->requestMethod = $requestMethod;
         $container->contentType = "html";
-        $container->logger = new class() { function __call($name, $args) {} };
+        $container->logger = new class ()
+        {
+            function __call($name, $args)
+            {
+            }
+        };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Header::class, $container);

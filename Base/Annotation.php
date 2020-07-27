@@ -1,4 +1,5 @@
 <?php
+
 namespace WebStream\Annotation\Base;
 
 use WebStream\DI\Injector;
@@ -24,7 +25,7 @@ abstract class Annotation
      */
     public function __construct(array $annotations = [])
     {
-        $this->logger = new class() { function __call($name, $args) {} };
+        $this->logger = new class () { public function __call($name, $args) {} };
         $this->onInject($annotations);
     }
 
