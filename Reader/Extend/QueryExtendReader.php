@@ -1,4 +1,5 @@
 <?php
+
 namespace WebStream\Annotation\Reader\Extend;
 
 use WebStream\Container\Container;
@@ -15,8 +16,7 @@ class QueryExtendReader extends ExtendReader
      * @var array<Container> アノテーション情報リスト
      */
     private $annotationInfo;
-
-    /**
+/**
      * {@inheritdoc}
      */
     public function getAnnotationInfo()
@@ -30,24 +30,25 @@ class QueryExtendReader extends ExtendReader
     public function read(array $annotationInfoList)
     {
         $func = function ($queryKey, $xpath) use ($annotationInfoList) {
+
             $queryList = [];
             foreach ($annotationInfoList as $annotationInfo) {
                 $xmlObjects = $annotationInfo[$queryKey];
                 foreach ($xmlObjects as $xmlObject) {
                     $xmlElement = $xmlObject->xpath($xpath);
                     if (!empty($xmlElement)) {
-                        $query = ["sql" => trim($xmlElement[0]->__toString()), "method" => $xmlElement[0]->getName()];
-                        $entity = $xmlElement[0]->attributes()["entity"];
-                        $query["entity"] = $entity !== null ? $entity->__toString() : null;
-                        $queryList[] = $query;
+                            $query = ["sql" => trim($xmlElement[0]->__toString()), "method" => $xmlElement[0]->getName()];
+                            $entity = $xmlElement[0]->attributes()["entity"];
+                            $query["entity"] = $entity !== null ? $entity->__toString() : null;
+                            $queryList[] = $query;
                     }
                 }
             }
 
             return $queryList;
         };
-
         $this->annotationInfo = function ($queryKey, $xpath) use ($func) {
+
             return $func($queryKey, $xpath);
         };
     }

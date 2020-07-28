@@ -1,6 +1,8 @@
 <?php
+
 namespace WebStream\Annotation\Test;
 
+// require_once dirname(__FILE__) . '/../Modules/DI/Injector.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/ApplicationException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/SystemException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/Extend/AnnotationException.php';
@@ -44,13 +46,18 @@ class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
         $container = new Container();
         $container->requestMethod = $requestMethod;
         $container->contentType = $contentType;
-        $container->logger = new class() { function __call($name, $args) {} };
+        $container->logger = new class ()
+        {
+            function __call($name, $args)
+            {
+            }
+        };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Header::class, $container);
         $annotaionReader->readMethod();
 
-        $this->assertArraySubset(
+        $this->assertEquals(
             [Header::class => [
                 ['contentType' => $contentType]
             ]],
@@ -63,15 +70,20 @@ class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
      * 実行時エラーが発生した場合、例外が発生すること
      * @test
      * @dataProvider runtimeErrorProvider
-     * @expectedException WebStream\Exception\Extend\InvalidRequestException
      */
     public function ngRuntimeErrorTest($clazz, $action, $requestMethod)
     {
+        $this->expectException(\WebStream\Exception\Extend\InvalidRequestException::class);
         $instance = new $clazz();
         $container = new Container();
         $container->requestMethod = $requestMethod;
         $container->contentType = "html";
-        $container->logger = new class() { function __call($name, $args) {} };
+        $container->logger = new class ()
+        {
+            function __call($name, $args)
+            {
+            }
+        };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Header::class, $container);
@@ -87,15 +99,20 @@ class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
      * 定義エラーがある場合、例外が発生すること
      * @test
      * @dataProvider annotationErrorProvider
-     * @expectedException WebStream\Exception\Extend\AnnotationException
      */
     public function ngAnnotationErrorTest($clazz, $action, $requestMethod)
     {
+        $this->expectException(\WebStream\Exception\Extend\AnnotationException::class);
         $instance = new $clazz();
         $container = new Container();
         $container->requestMethod = $requestMethod;
         $container->contentType = "html";
-        $container->logger = new class() { function __call($name, $args) {} };
+        $container->logger = new class ()
+        {
+            function __call($name, $args)
+            {
+            }
+        };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Header::class, $container);

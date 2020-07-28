@@ -1,4 +1,5 @@
 <?php
+
 namespace WebStream\Annotation\Reader\Extend;
 
 use WebStream\DI\Injector;
@@ -23,7 +24,7 @@ abstract class ExtendReader
      */
     public function __construct()
     {
-        $this->logger = new class() { function __call($name, $args) {} };
+        $this->logger = new class () { public function __call($name, $args) {} };
     }
 
     /**

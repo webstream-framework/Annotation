@@ -1,6 +1,8 @@
 <?php
+
 namespace WebStream\Annotation\Test;
 
+// require_once dirname(__FILE__) . '/../Modules/DI/Injector.php';
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/ApplicationException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/Extend/AnnotationException.php';
@@ -18,7 +20,6 @@ use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Attributes\Template;
 use WebStream\Annotation\Test\Providers\TemplateAnnotationProvider;
 use WebStream\Container\Container;
-use WebStream\Exception\Extend\AnnotationException;
 
 /**
  * TemplateAnnotationTest
@@ -45,13 +46,18 @@ class TemplateAnnotationTest extends \PHPUnit\Framework\TestCase
             'basic' => "WebStream\Template\Basic",
             'twig' => "WebStream\Template\Twig"
         ];
-        $container->logger = new class() { function __call($name, $args) {} };
+        $container->logger = new class ()
+        {
+            function __call($name, $args)
+            {
+            }
+        };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Template::class, $container);
         $annotaionReader->readMethod();
 
-        $this->assertArraySubset(
+        $this->assertEquals(
             [Template::class => $result],
             $annotaionReader->getAnnotationInfoList()
         );
@@ -62,10 +68,10 @@ class TemplateAnnotationTest extends \PHPUnit\Framework\TestCase
      * テンプレート情報に誤りがある場合、例外が発生すること
      * @test
      * @dataProvider ngProvider
-     * @expectedException WebStream\Exception\Extend\AnnotationException
      */
     public function ngAnnotationTest($clazz, $action)
     {
+        $this->expectException(\WebStream\Exception\Extend\AnnotationException::class);
         $instance = new $clazz();
         $container = new Container();
         $container->action = $action;
@@ -73,7 +79,12 @@ class TemplateAnnotationTest extends \PHPUnit\Framework\TestCase
             'basic' => "WebStream\Template\Basic",
             'twig' => "WebStream\Template\Twig"
         ];
-        $container->logger = new class() { function __call($name, $args) {} };
+        $container->logger = new class ()
+        {
+            function __call($name, $args)
+            {
+            }
+        };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Template::class, $container);

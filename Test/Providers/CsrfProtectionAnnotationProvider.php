@@ -1,4 +1,5 @@
 <?php
+
 namespace WebStream\Annotation\Test\Providers;
 
 use WebStream\Annotation\Test\Fixtures\CsrfProtectionFixture1;

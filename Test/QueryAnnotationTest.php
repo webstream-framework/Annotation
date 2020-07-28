@@ -1,6 +1,8 @@
 <?php
+
 namespace WebStream\Annotation\Test;
 
+// require_once dirname(__FILE__) . '/../Modules/DI/Injector.php';
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
 require_once dirname(__FILE__) . '/../Modules/Container/ValueProxy.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/ApplicationException.php';
@@ -32,7 +34,6 @@ use WebStream\Annotation\Reader\Extend\QueryExtendReader;
 use WebStream\Annotation\Attributes\Query;
 use WebStream\Annotation\Test\Providers\QueryAnnotationProvider;
 use WebStream\Container\Container;
-use WebStream\Exception\Extend\AnnotationException;
 
 /**
  * QueryAnnotationTest
@@ -98,10 +99,10 @@ class QueryAnnotationTest extends \PHPUnit\Framework\TestCase
      * 異常系
      * クエリファイルパスが間違っている場合、例外が発生すること
      * @dataProvider ng1Provider
-     * @expectedException WebStream\Exception\Extend\DatabaseException
      */
     public function ngAnnotationInvalidFileFormatTest($clazz, $action, $rootPath)
     {
+        $this->expectException(\WebStream\Exception\Extend\DatabaseException::class);
         $instance = new $clazz();
         $container = new Container();
         $container->rootPath = $rootPath;
@@ -124,6 +125,7 @@ class QueryAnnotationTest extends \PHPUnit\Framework\TestCase
      */
     public function ngAnnotationInvalidFilePathTest($clazz, $action, $rootPath)
     {
+        $this->expectException(\WebStream\Exception\Extend\DatabaseException::class);
         $instance = new $clazz();
         $container = new Container();
         $container->rootPath = $rootPath;

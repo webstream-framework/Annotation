@@ -1,6 +1,8 @@
 <?php
+
 namespace WebStream\Annotation\Test;
 
+// require_once dirname(__FILE__) . '/../Modules/DI/Injector.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/ApplicationException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/SystemException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/Extend/AnnotationException.php';
@@ -63,12 +65,16 @@ class ValidateAnnotationTest extends \PHPUnit\Framework\TestCase
         $container->applicationInfo = new Container(false);
         $container->applicationInfo->applicationRoot = dirname(__FILE__) . '/../Attributes/';
         $container->applicationInfo->externalLibraryRoot = null;
-        $container->logger = new class() { function __call($name, $args) {} };
+        $container->logger = new class ()
+        {
+            function __call($name, $args)
+            {
+            }
+        };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Validate::class, $container);
         $annotaionReader->readMethod();
-        // var_dump($annotaionReader->getException());
         $this->assertNull($annotaionReader->getException());
     }
 
@@ -88,7 +94,12 @@ class ValidateAnnotationTest extends \PHPUnit\Framework\TestCase
         $container->applicationInfo = new Container(false);
         $container->applicationInfo->applicationRoot = dirname(__FILE__) . '/../Attributes/';
         $container->applicationInfo->externalLibraryRoot = null;
-        $container->logger = new class() { function __call($name, $args) {} };
+        $container->logger = new class ()
+        {
+            function __call($name, $args)
+            {
+            }
+        };
         $annotaionReader = new AnnotationReader($instance);
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Validate::class, $container);

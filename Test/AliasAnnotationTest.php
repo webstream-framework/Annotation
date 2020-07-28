@@ -1,4 +1,5 @@
 <?php
+
 namespace WebStream\Annotation\Test;
 
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
@@ -20,7 +21,6 @@ use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Attributes\Alias;
 use WebStream\Annotation\Test\Providers\AliasAnnotationProvider;
 use WebStream\Container\Container;
-use WebStream\Exception\Extend\AnnotationException;
 
 /**
  * AliasAnnotationTest
@@ -48,7 +48,6 @@ class AliasAnnotationTest extends \PHPUnit\Framework\TestCase
         $annotaionReader->readable(Alias::class, $container);
         $annotaionReader->readMethod();
         $annotation = $annotaionReader->getAnnotationInfoList();
-        $exception = $annotaionReader->getException();
 
         $this->assertEquals($annotation[Alias::class][0]['method'], $originMethod);
     }
@@ -58,10 +57,10 @@ class AliasAnnotationTest extends \PHPUnit\Framework\TestCase
      * メソッドエイリアスと同名の実メソッドが定義されている場合、例外が発生すること
      * @test
      * @dataProvider ngProvider
-     * @expectedException WebStream\Exception\Extend\AnnotationException
      */
     public function ngAnnotationTest($clazz, $aliasMethod, $originMethod)
     {
+        $this->expectException(\WebStream\Exception\Extend\AnnotationException::class);
         $instance = new $clazz();
         $container = new Container();
         $container->action = $aliasMethod;

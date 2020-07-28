@@ -1,8 +1,8 @@
 <?php
+
 namespace WebStream\Annotation\Reader;
 
 use WebStream\Annotation\Base\IAnnotatable;
-use WebStream\Annotation\Base\Annotation;
 use WebStream\Annotation\Base\IClass;
 use WebStream\Annotation\Base\IExtension;
 use WebStream\Annotation\Base\IMethod;
@@ -53,7 +53,7 @@ class AnnotationReader
     private $annotationInfoExtendList;
 
     /**
-     * @var callable 読み込み時の例外
+     * @var ExceptionDelegator 読み込み時の例外
      */
     private $exception;
 
@@ -90,7 +90,7 @@ class AnnotationReader
 
     /**
      * アノテーション情報リストを返却する
-     * @param array<mixed> アノテーション情報リスト
+     * @return array<mixed> アノテーション情報リスト
      */
     public function getAnnotationInfoList(): array
     {
@@ -114,9 +114,9 @@ class AnnotationReader
 
     /**
      * 発生した例外を返却する
-     * @param ExceptionDelegator 発生した例外
+     * @return ExceptionDelegator 発生した例外
      */
-    public function getException()
+    public function getException(): ?ExceptionDelegator
     {
         return $this->exception;
     }

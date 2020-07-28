@@ -1,7 +1,9 @@
 <?php
+
 namespace WebStream\Annotation\Test;
 
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
+require_once dirname(__FILE__) . '/../Modules/Exception/Modules/DI/Injector.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/ApplicationException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/Extend/CsrfException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/Delegate/ExceptionDelegator.php';
@@ -48,7 +50,6 @@ class CsrfProtectionAnnotationTest extends \PHPUnit\Framework\TestCase
         $annotaionReader->setActionMethod("action");
         $annotaionReader->readable(CsrfProtection::class, $container);
         $annotaionReader->readMethod();
-        $exception = $annotaionReader->getException();
 
         $this->assertNull($exception);
     }
@@ -58,10 +59,10 @@ class CsrfProtectionAnnotationTest extends \PHPUnit\Framework\TestCase
      * CSRFエラーが起きること
      * @test
      * @dataProvider ngProvider
-     * @expectedException WebStream\Exception\Extend\CsrfException
      */
     public function ngAnnotationTest($clazz, $requestMethod, $post, $header)
     {
+        $this->expectException(\WebStream\Exception\Extend\CsrfException::class);
         $instance = new $clazz();
         $container = new Container();
         $container->requestMethod = $requestMethod;
