@@ -1,6 +1,6 @@
 # Annotation
-
-[![Build Status](https://travis-ci.org/webstream-framework/Annotation.svg?branch=master)](https://travis-ci.org/webstream-framework/Annotation)  [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/webstream-framework/Annotation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/webstream-framework/Annotation/?branch=master)
+![build](https://github.com/webstream-framework/Annotation/workflows/build/badge.svg)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/webstream-framework/Annotation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/webstream-framework/Annotation/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/webstream-framework/Annotation/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/webstream-framework/Annotation/?branch=master)
 
 This library provides PHP annotation definitions.  
