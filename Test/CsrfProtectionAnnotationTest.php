@@ -50,6 +50,7 @@ class CsrfProtectionAnnotationTest extends \PHPUnit\Framework\TestCase
         $annotaionReader->setActionMethod("action");
         $annotaionReader->readable(CsrfProtection::class, $container);
         $annotaionReader->readMethod();
+        $exception = $annotaionReader->getException();
 
         $this->assertNull($exception);
     }
