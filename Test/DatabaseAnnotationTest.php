@@ -4,7 +4,7 @@ namespace WebStream\Annotation\Test;
 
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
 require_once dirname(__FILE__) . '/../Modules/IO/File.php';
-require_once dirname(__FILE__) . '/../Modules/Exception/Modules/DI/Injector.php';
+require_once dirname(__FILE__) . '/../Modules/DI/Injector.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/ApplicationException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/Extend/DatabaseException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/Extend/IOException.php';

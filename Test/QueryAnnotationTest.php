@@ -2,7 +2,7 @@
 
 namespace WebStream\Annotation\Test;
 
-// require_once dirname(__FILE__) . '/../Modules/DI/Injector.php';
+require_once dirname(__FILE__) . '/../Modules/DI/Injector.php';
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
 require_once dirname(__FILE__) . '/../Modules/Container/ValueProxy.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/ApplicationException.php';
