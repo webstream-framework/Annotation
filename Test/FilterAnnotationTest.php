@@ -2,6 +2,7 @@
 
 namespace WebStream\Annotation\Test;
 
+// require_once dirname(__FILE__) . '/../Modules/DI/Injector.php';
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/SystemException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/Extend/CollectionException.php';
@@ -29,7 +30,6 @@ use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Reader\Extend\FilterExtendReader;
 use WebStream\Annotation\Attributes\Filter;
 use WebStream\Annotation\Test\Providers\FilterAnnotationProvider;
-use WebStream\Exception\Delegate\ExceptionDelegator;
 use WebStream\Container\Container;
 
 /**

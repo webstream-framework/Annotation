@@ -3,11 +3,13 @@
 namespace WebStream\Annotation\Test;
 
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
+require_once dirname(__FILE__) . '/../Modules/Exception/Modules/DI/Injector.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/ApplicationException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/Delegate/ExceptionDelegator.php';
 require_once dirname(__FILE__) . '/../Base/Annotation.php';
 require_once dirname(__FILE__) . '/../Base/IAnnotatable.php';
 require_once dirname(__FILE__) . '/../Base/IMethod.php';
+require_once dirname(__FILE__) . '/../Base/IMethods.php';
 require_once dirname(__FILE__) . '/../Base/IRead.php';
 require_once dirname(__FILE__) . '/../Base/IExtension.php';
 require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';

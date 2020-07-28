@@ -4,6 +4,7 @@ namespace WebStream\Annotation\Test;
 
 require_once dirname(__FILE__) . '/../Modules/Container/Container.php';
 require_once dirname(__FILE__) . '/../Modules/IO/File.php';
+require_once dirname(__FILE__) . '/../Modules/Exception/Modules/DI/Injector.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/ApplicationException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/Extend/DatabaseException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/Extend/IOException.php';
@@ -51,7 +52,7 @@ class DatabaseAnnotationTest extends \PHPUnit\Framework\TestCase
         $annotaionReader->readClass();
         $annotation = $annotaionReader->getAnnotationInfoList();
 
-        $this->assertArraySubset(
+        $this->assertEquals(
             [Database::class => $result],
             $annotaionReader->getAnnotationInfoList()
         );
@@ -62,10 +63,10 @@ class DatabaseAnnotationTest extends \PHPUnit\Framework\TestCase
      * データベースドライバが読み込めない場合、例外が発生すること
      * @test
      * @dataProvider ngProvider
-     * @expectedException WebStream\Exception\Extend\DatabaseException
      */
     public function ngAnnotationTest($clazz, $action)
     {
+        $this->expectException(\WebStream\Exception\Extend\DatabaseException::class);
         $instance = new $clazz();
         $container = new Container();
         $annotaionReader = new AnnotationReader($instance);

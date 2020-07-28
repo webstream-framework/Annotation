@@ -2,6 +2,7 @@
 
 namespace WebStream\Annotation\Test;
 
+// require_once dirname(__FILE__) . '/../Modules/DI/Injector.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/ApplicationException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/SystemException.php';
 require_once dirname(__FILE__) . '/../Modules/Exception/Extend/AnnotationException.php';
@@ -74,7 +75,6 @@ class ValidateAnnotationTest extends \PHPUnit\Framework\TestCase
         $annotaionReader->setActionMethod($action);
         $annotaionReader->readable(Validate::class, $container);
         $annotaionReader->readMethod();
-        // var_dump($annotaionReader->getException());
         $this->assertNull($annotaionReader->getException());
     }
 
