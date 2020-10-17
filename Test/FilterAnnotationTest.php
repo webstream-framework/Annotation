@@ -26,9 +26,10 @@ require_once dirname(__FILE__) . '/../Test/Fixtures/FilterFixture5.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/FilterFixture6.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/FilterFixture7.php';
 
+use PHPUnit\Framework\TestCase;
+use WebStream\Annotation\Attributes\Filter;
 use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Reader\Extend\FilterExtendReader;
-use WebStream\Annotation\Attributes\Filter;
 use WebStream\Annotation\Test\Providers\FilterAnnotationProvider;
 use WebStream\Container\Container;
 
@@ -38,7 +39,7 @@ use WebStream\Container\Container;
  * @since 2017/01/09
  * @version 0.7
  */
-class FilterAnnotationTest extends \PHPUnit\Framework\TestCase
+class FilterAnnotationTest extends TestCase
 {
     use FilterAnnotationProvider;
 
@@ -47,18 +48,22 @@ class FilterAnnotationTest extends \PHPUnit\Framework\TestCase
      * before/afterフィルタが実行されること
      * @test
      * @dataProvider filterOutputProvider
+     * @param $output
+     * @param $clazz
+     * @param $action
+     * @throws \ReflectionException
      */
     public function okAnnotationTest($output, $clazz, $action)
     {
         $instance = new $clazz();
         $container = new Container();
         $container->action = $action;
-        $annotaionReader = new AnnotationReader($instance);
-        $annotaionReader->setActionMethod($action);
-        $annotaionReader->readable(Filter::class, $container);
-        $annotaionReader->useExtendReader(Filter::class, FilterExtendReader::class);
-        $annotaionReader->readMethod();
-        $annotation = $annotaionReader->getAnnotationInfoList();
+        $annotationReader = new AnnotationReader($instance);
+        $annotationReader->setActionMethod($action);
+        $annotationReader->readable(Filter::class, $container);
+        $annotationReader->useExtendReader(Filter::class, FilterExtendReader::class);
+        $annotationReader->readMethod();
+        $annotation = $annotationReader->getAnnotationInfoList();
 
         foreach ($annotation[Filter::class]->initialize as $refMethod) {
             $refMethod->invoke($instance);

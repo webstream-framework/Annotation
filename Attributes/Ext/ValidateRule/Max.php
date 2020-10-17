@@ -13,10 +13,10 @@ class Max implements IValidate
     /**
      * {@inheritdoc}
      */
-    public function isValid($value, $rule)
+    public function isValid($value, string $rule)
     {
         $isValid = false;
-        if (preg_match('/^max\[([-]?\d{1,}\.?\d{0,}?)\]$/', $rule, $matches)) {
+        if (preg_match('/^max\[([-]?\d+\.?\d*?)\]$/', $rule, $matches)) {
             $isValid = $value === null || doubleval($value) <= doubleval($matches[1]);
         }
 

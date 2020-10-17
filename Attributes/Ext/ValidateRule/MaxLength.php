@@ -13,7 +13,7 @@ class MaxLength implements IValidate
     /**
      * {@inheritdoc}
      */
-    public function isValid($value, $rule)
+    public function isValid($value, string $rule)
     {
         $isValid = false;
         if (preg_match('/^max_length\[(0|[1-9]\d*)\]$/', $rule, $matches)) {

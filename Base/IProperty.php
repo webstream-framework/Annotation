@@ -2,7 +2,6 @@
 
 namespace WebStream\Annotation\Base;
 
-use WebStream\Annotation\Base\IAnnotatable;
 use WebStream\Container\Container;
 
 /**
@@ -16,8 +15,8 @@ interface IProperty
     /**
      * プロパティオブジェクトを注入
      * @param IAnnotatable 注入先インスタンス
-     * @param ReflectionProperty リフレクションプロパティオブジェクト
-     * @param Container 依存コンテナ
+     * @param \ReflectionProperty リフレクションプロパティオブジェクト
+     * @param Container $container
      */
     public function onPropertyInject(IAnnotatable $instance, \ReflectionProperty $property, Container $container);
 }

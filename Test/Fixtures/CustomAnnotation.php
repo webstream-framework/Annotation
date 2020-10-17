@@ -17,7 +17,7 @@ class CustomAnnotation extends Annotation implements IMethods, IExtension
     /**
      * @var array<string> 注入アノテーション情報
      */
-    private $injectAnnotation;
+    private array $injectAnnotation;
 
     /**
      * {@inheritdoc}

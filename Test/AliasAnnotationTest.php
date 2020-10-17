@@ -17,8 +17,9 @@ require_once dirname(__FILE__) . '/../Test/Providers/AliasAnnotationProvider.php
 require_once dirname(__FILE__) . '/../Test/Fixtures/AliasFixture1.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/AliasFixture2.php';
 
-use WebStream\Annotation\Reader\AnnotationReader;
+use PHPUnit\Framework\TestCase;
 use WebStream\Annotation\Attributes\Alias;
+use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Test\Providers\AliasAnnotationProvider;
 use WebStream\Container\Container;
 
@@ -28,7 +29,7 @@ use WebStream\Container\Container;
  * @since 2017/01/10
  * @version 0.7
  */
-class AliasAnnotationTest extends \PHPUnit\Framework\TestCase
+class AliasAnnotationTest extends TestCase
 {
     use AliasAnnotationProvider;
 
@@ -37,17 +38,21 @@ class AliasAnnotationTest extends \PHPUnit\Framework\TestCase
      * メソッドエイリアスが定義されている実メソッドが取得できること
      * @test
      * @dataProvider okProvider
+     * @param $clazz
+     * @param $aliasMethod
+     * @param $originMethod
+     * @throws \ReflectionException
      */
     public function okAnnotationTest($clazz, $aliasMethod, $originMethod)
     {
         $instance = new $clazz();
         $container = new Container();
         $container->action = $aliasMethod;
-        $annotaionReader = new AnnotationReader($instance);
-        $annotaionReader->setActionMethod($aliasMethod);
-        $annotaionReader->readable(Alias::class, $container);
-        $annotaionReader->readMethod();
-        $annotation = $annotaionReader->getAnnotationInfoList();
+        $annotationReader = new AnnotationReader($instance);
+        $annotationReader->setActionMethod($aliasMethod);
+        $annotationReader->readable(Alias::class, $container);
+        $annotationReader->readMethod();
+        $annotation = $annotationReader->getAnnotationInfoList();
 
         $this->assertEquals($annotation[Alias::class][0]['method'], $originMethod);
     }
@@ -57,18 +62,21 @@ class AliasAnnotationTest extends \PHPUnit\Framework\TestCase
      * メソッドエイリアスと同名の実メソッドが定義されている場合、例外が発生すること
      * @test
      * @dataProvider ngProvider
+     * @param $clazz
+     * @param $aliasMethod
+     * @throws \Exception
      */
-    public function ngAnnotationTest($clazz, $aliasMethod, $originMethod)
+    public function ngAnnotationTest($clazz, $aliasMethod)
     {
         $this->expectException(\WebStream\Exception\Extend\AnnotationException::class);
         $instance = new $clazz();
         $container = new Container();
         $container->action = $aliasMethod;
-        $annotaionReader = new AnnotationReader($instance);
-        $annotaionReader->setActionMethod($aliasMethod);
-        $annotaionReader->readable(Alias::class, $container);
-        $annotaionReader->readMethod();
-        $exception = $annotaionReader->getException();
+        $annotationReader = new AnnotationReader($instance);
+        $annotationReader->setActionMethod($aliasMethod);
+        $annotationReader->readable(Alias::class, $container);
+        $annotationReader->readMethod();
+        $exception = $annotationReader->getException();
 
         $this->assertNotNull($exception);
         $exception->raise();

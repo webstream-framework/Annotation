@@ -19,6 +19,7 @@ require_once dirname(__FILE__) . '/../Attributes/Header.php';
 require_once dirname(__FILE__) . '/../Test/Providers/HeaderAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/HeaderFixture1.php';
 
+use PHPUnit\Framework\TestCase;
 use WebStream\Annotation\Attributes\Header;
 use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Test\Providers\HeaderAnnotationProvider;
@@ -30,7 +31,7 @@ use WebStream\Container\Container;
  * @since 2017/01/09
  * @version 0.7
  */
-class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
+class HeaderAnnotationTest extends TestCase
 {
     use HeaderAnnotationProvider;
 
@@ -39,6 +40,11 @@ class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
      * @Headerの情報が取得できること
      * @test
      * @dataProvider okProvider
+     * @param $clazz
+     * @param $action
+     * @param $requestMethod
+     * @param $contentType
+     * @throws \ReflectionException
      */
     public function okAnnotationTest($clazz, $action, $requestMethod, $contentType)
     {
@@ -52,16 +58,16 @@ class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
             {
             }
         };
-        $annotaionReader = new AnnotationReader($instance);
-        $annotaionReader->setActionMethod($action);
-        $annotaionReader->readable(Header::class, $container);
-        $annotaionReader->readMethod();
+        $annotationReader = new AnnotationReader($instance);
+        $annotationReader->setActionMethod($action);
+        $annotationReader->readable(Header::class, $container);
+        $annotationReader->readMethod();
 
         $this->assertEquals(
             [Header::class => [
                 ['contentType' => $contentType]
             ]],
-            $annotaionReader->getAnnotationInfoList()
+            $annotationReader->getAnnotationInfoList()
         );
     }
 
@@ -70,6 +76,10 @@ class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
      * 実行時エラーが発生した場合、例外が発生すること
      * @test
      * @dataProvider runtimeErrorProvider
+     * @param $clazz
+     * @param $action
+     * @param $requestMethod
+     * @throws \Exception
      */
     public function ngRuntimeErrorTest($clazz, $action, $requestMethod)
     {
@@ -84,11 +94,11 @@ class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
             {
             }
         };
-        $annotaionReader = new AnnotationReader($instance);
-        $annotaionReader->setActionMethod($action);
-        $annotaionReader->readable(Header::class, $container);
-        $annotaionReader->readMethod();
-        $exception = $annotaionReader->getException();
+        $annotationReader = new AnnotationReader($instance);
+        $annotationReader->setActionMethod($action);
+        $annotationReader->readable(Header::class, $container);
+        $annotationReader->readMethod();
+        $exception = $annotationReader->getException();
 
         $this->assertNotNull($exception);
         $exception->raise();
@@ -99,6 +109,10 @@ class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
      * 定義エラーがある場合、例外が発生すること
      * @test
      * @dataProvider annotationErrorProvider
+     * @param $clazz
+     * @param $action
+     * @param $requestMethod
+     * @throws \Exception
      */
     public function ngAnnotationErrorTest($clazz, $action, $requestMethod)
     {
@@ -113,11 +127,11 @@ class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
             {
             }
         };
-        $annotaionReader = new AnnotationReader($instance);
-        $annotaionReader->setActionMethod($action);
-        $annotaionReader->readable(Header::class, $container);
-        $annotaionReader->readMethod();
-        $exception = $annotaionReader->getException();
+        $annotationReader = new AnnotationReader($instance);
+        $annotationReader->setActionMethod($action);
+        $annotationReader->readable(Header::class, $container);
+        $annotationReader->readMethod();
+        $exception = $annotationReader->getException();
 
         $this->assertNotNull($exception);
         $exception->raise();
@@ -128,13 +142,17 @@ class HeaderAnnotationTest extends \PHPUnit\Framework\TestCase
      * アノテーション読み込み設定をしていない場合、読み込み結果が取得できないこと
      * @test
      * @dataProvider okProvider
+     * @param $clazz
+     * @param $action
+     * @param $requestMethod
+     * @throws \ReflectionException
      */
     public function ngUnReadableAnnotationTest($clazz, $action, $requestMethod)
     {
         $instance = new $clazz();
-        $annotaionReader = new AnnotationReader($instance);
-        $annotaionReader->setActionMethod($action);
-        $annotaionReader->readMethod();
-        $this->assertEmpty($annotaionReader->getAnnotationInfoList());
+        $annotationReader = new AnnotationReader($instance);
+        $annotationReader->setActionMethod($action);
+        $annotationReader->readMethod();
+        $this->assertEmpty($annotationReader->getAnnotationInfoList());
     }
 }

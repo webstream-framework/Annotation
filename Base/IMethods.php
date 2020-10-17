@@ -2,7 +2,6 @@
 
 namespace WebStream\Annotation\Base;
 
-use WebStream\Annotation\Base\IAnnotatable;
 use WebStream\Container\Container;
 
 /**
@@ -16,8 +15,8 @@ interface IMethods
     /**
      * メソッドオブジェクトを注入
      * @param IAnnotatable 注入先インスタンス
-     * @param ReflectionMethod リフレクションメソッドオブジェクト
-     * @param Container 依存コンテナ
+     * @param \ReflectionMethod リフレクションメソッドオブジェクト
+     * @param Container $container
      */
     public function onMethodInject(IAnnotatable $instance, \ReflectionMethod $method, Container $container);
 }

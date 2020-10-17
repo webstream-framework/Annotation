@@ -13,10 +13,10 @@ class Range implements IValidate
     /**
      * {@inheritdoc}
      */
-    public function isValid($value, $rule)
+    public function isValid($value, string $rule)
     {
         $isValid = false;
-        if (preg_match('/^range\[([-]?\d{1,}\.?\d{0,}?)\.\.([-]?\d{1,}\.?\d{0,}?)\]$/', $rule, $matches)) {
+        if (preg_match('/^range\[([-]?\d+\.?\d*?)\.\.([-]?\d+\.?\d*?)\]$/', $rule, $matches)) {
             $value = doubleval($value);
             $isValid = $value === null || ($value >= doubleval($matches[1]) && $value <= doubleval($matches[2]));
         }

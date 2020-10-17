@@ -16,6 +16,7 @@ require_once dirname(__FILE__) . '/../Reader/AnnotationReader.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/CustomAnnotation.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/CustomAnnotationFixture1.php';
 
+use PHPUnit\Framework\TestCase;
 use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Test\Fixtures\CustomAnnotationFixture1;
 
@@ -25,7 +26,7 @@ use WebStream\Annotation\Test\Fixtures\CustomAnnotationFixture1;
  * @since 2018/02/15
  * @version 0.7
  */
-class CustomAnnotationTest extends \PHPUnit\Framework\TestCase
+class CustomAnnotationTest extends TestCase
 {
     /**
      * 正常系
@@ -35,8 +36,8 @@ class CustomAnnotationTest extends \PHPUnit\Framework\TestCase
     public function okAnnotationTest()
     {
         $instance = new CustomAnnotationFixture1();
-        $annotaionReader = new AnnotationReader($instance);
-        $annotaionReader->readMethod();
+        $annotationReader = new AnnotationReader($instance);
+        $annotationReader->readMethod();
         $this->expectOutputString("test");
     }
 }

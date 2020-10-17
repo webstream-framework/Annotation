@@ -2,6 +2,7 @@
 
 namespace WebStream\Annotation\Reader;
 
+use Doctrine\Common\Annotations\AnnotationReader as DoctrineAnnotationReader;
 use WebStream\Annotation\Base\IAnnotatable;
 use WebStream\Annotation\Base\IClass;
 use WebStream\Annotation\Base\IExtension;
@@ -14,8 +15,6 @@ use WebStream\Container\Container;
 use WebStream\DI\Injector;
 use WebStream\Exception\Delegate\ExceptionDelegator;
 use WebStream\Exception\Extend\AnnotationException;
-use Doctrine\Common\Annotations\AnnotationReader as DoctrineAnnotationReader;
-use Doctrine\Common\Annotations\AnnotationException as DoctrineAnnotationException;
 
 /**
  * AnnotationReader
@@ -30,46 +29,46 @@ class AnnotationReader
     /**
      * @var IAnnotatable インスタンス
      */
-    private $instance;
+    private IAnnotatable $instance;
 
     /**
      * @var array<string> 読み込み可能アノテーション情報
      */
-    private $readableMap;
+    private array $readableMap;
 
     /**
      * @var array<ExtendReader> 拡張アノテーションリーダー
      */
-    private $extendReaderMap;
+    private array $extendReaderMap;
 
     /**
      * @var array<string> アノテーション情報リスト
      */
-    private $annotationInfoList;
+    private array $annotationInfoList;
 
     /**
      * @var array<string> アノテーション情報リスト(拡張リーダー処理済み)
      */
-    private $annotationInfoExtendList;
+    private array $annotationInfoExtendList;
 
     /**
      * @var ExceptionDelegator 読み込み時の例外
      */
-    private $exception;
+    private ExceptionDelegator $exception;
 
     /**
      * @var string アクションメソッド
      */
-    private $actionMethod;
+    private string $actionMethod;
 
     /**
      * @var Container デフォルト依存コンテナ
      */
-    private $defaultContainer;
+    private Container $defaultContainer;
 
     /**
      * constructor
-     * @param IAnnotatable ターゲットインスタンス
+     * @param IAnnotatable $instance
      */
     public function __construct(IAnnotatable $instance)
     {
@@ -91,6 +90,7 @@ class AnnotationReader
     /**
      * アノテーション情報リストを返却する
      * @return array<mixed> アノテーション情報リスト
+     * @throws \ReflectionException
      */
     public function getAnnotationInfoList(): array
     {
@@ -118,7 +118,7 @@ class AnnotationReader
      */
     public function getException(): ?ExceptionDelegator
     {
-        return $this->exception;
+        return $this->exception ?? null;
     }
 
     /**
@@ -133,7 +133,7 @@ class AnnotationReader
     /**
      * 読み込み可能アノテーション情報を設定する
      * @param string アノテーションクラスパス
-     * @param Container アノテーションクラス依存コンテナ
+     * @param Container|null $container
      */
     public function readable(string $classpath, Container $container = null)
     {
@@ -159,7 +159,7 @@ class AnnotationReader
             $this->readClass();
             $this->readMethod();
             $this->readProperty();
-        } catch (DoctrineAnnotationException $e) {
+        } catch (\Exception $e) {
             $this->initialize();
             throw new AnnotationException($e);
         }
@@ -167,6 +167,7 @@ class AnnotationReader
 
     /**
      * クラス情報を読み込む
+     * @throws \ReflectionException
      */
     public function readClass()
     {
@@ -199,7 +200,7 @@ class AnnotationReader
                     try {
                         $annotation->onClassInject($this->instance, $refClass, $container);
                     } catch (\Exception $e) {
-                        if ($this->exception === null) {
+                        if (!isset($this->exception)) {
                             $this->exception = new ExceptionDelegator($this->instance, $e);
                         }
                         continue;
@@ -268,7 +269,7 @@ class AnnotationReader
                     try {
                         $annotation->onMethodInject($this->instance, $refMethod, $container);
                     } catch (\Exception $e) {
-                        if ($this->exception === null) {
+                        if (!isset($this->exception)) {
                             $this->exception = new ExceptionDelegator($this->instance, $e, $this->actionMethod);
                         }
                         continue;
@@ -331,7 +332,7 @@ class AnnotationReader
                     try {
                         $annotation->onPropertyInject($this->instance, $refProperty, $container);
                     } catch (\Exception $e) {
-                        if ($this->exception === null) {
+                        if (!isset($this->exception)) {
                             $this->exception = new ExceptionDelegator($this->instance, $e);
                         }
                         continue;

@@ -23,7 +23,7 @@ trait AliasAnnotationProvider
     public function ngProvider()
     {
         return [
-            [AliasFixture2::class, "aliasMethod1", "originMethod1"]
+            [AliasFixture2::class, "aliasMethod1"]
         ];
     }
 }

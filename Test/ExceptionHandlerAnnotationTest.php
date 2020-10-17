@@ -17,6 +17,7 @@ require_once dirname(__FILE__) . '/../Test/Fixtures/ExceptionHandlerFixture2.php
 require_once dirname(__FILE__) . '/../Test/Fixtures/ExceptionHandlerFixture3.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/ExceptionHandlerFixture4.php';
 
+use PHPUnit\Framework\TestCase;
 use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Attributes\ExceptionHandler;
 use WebStream\Annotation\Test\Providers\ExceptionHandlerAnnotationProvider;
@@ -28,7 +29,7 @@ use WebStream\Container\Container;
  * @since 2017/01/09
  * @version 0.7
  */
-class ExceptionHandlerAnnotationTest extends \PHPUnit\Framework\TestCase
+class ExceptionHandlerAnnotationTest extends TestCase
 {
     use ExceptionHandlerAnnotationProvider;
 
@@ -37,16 +38,20 @@ class ExceptionHandlerAnnotationTest extends \PHPUnit\Framework\TestCase
      * 発生した例外を捕捉できること
      * @test
      * @dataProvider okProvider
+     * @param $fixtureClass
+     * @param $exceptionClass
+     * @param $action
+     * @throws \ReflectionException
      */
     public function okAnnotationTest($fixtureClass, $exceptionClass, $action)
     {
         $instance = new $fixtureClass();
         $container = new Container();
-        $annotaionReader = new AnnotationReader($instance);
-        $annotaionReader->setActionMethod($action);
-        $annotaionReader->readable(ExceptionHandler::class, $container);
-        $annotaionReader->readMethod();
-        $annotation = $annotaionReader->getAnnotationInfoList();
+        $annotationReader = new AnnotationReader($instance);
+        $annotationReader->setActionMethod($action);
+        $annotationReader->readable(ExceptionHandler::class, $container);
+        $annotationReader->readMethod();
+        $annotation = $annotationReader->getAnnotationInfoList();
 
         $this->assertTrue(count($annotation[ExceptionHandler::class]) > 0);
         $exceptions = [];

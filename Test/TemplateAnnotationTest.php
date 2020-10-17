@@ -16,8 +16,9 @@ require_once dirname(__FILE__) . '/../Attributes/Template.php';
 require_once dirname(__FILE__) . '/../Test/Providers/TemplateAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/TemplateFixture1.php';
 
-use WebStream\Annotation\Reader\AnnotationReader;
+use PHPUnit\Framework\TestCase;
 use WebStream\Annotation\Attributes\Template;
+use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Test\Providers\TemplateAnnotationProvider;
 use WebStream\Container\Container;
 
@@ -27,7 +28,7 @@ use WebStream\Container\Container;
  * @since 2017/01/14
  * @version 0.7
  */
-class TemplateAnnotationTest extends \PHPUnit\Framework\TestCase
+class TemplateAnnotationTest extends TestCase
 {
     use TemplateAnnotationProvider;
 
@@ -36,6 +37,10 @@ class TemplateAnnotationTest extends \PHPUnit\Framework\TestCase
      * データベース情報を読み込めること
      * @test
      * @dataProvider okProvider
+     * @param $clazz
+     * @param $action
+     * @param $result
+     * @throws \ReflectionException
      */
     public function okAnnotationTest($clazz, $action, $result)
     {
@@ -52,14 +57,14 @@ class TemplateAnnotationTest extends \PHPUnit\Framework\TestCase
             {
             }
         };
-        $annotaionReader = new AnnotationReader($instance);
-        $annotaionReader->setActionMethod($action);
-        $annotaionReader->readable(Template::class, $container);
-        $annotaionReader->readMethod();
+        $annotationReader = new AnnotationReader($instance);
+        $annotationReader->setActionMethod($action);
+        $annotationReader->readable(Template::class, $container);
+        $annotationReader->readMethod();
 
         $this->assertEquals(
             [Template::class => $result],
-            $annotaionReader->getAnnotationInfoList()
+            $annotationReader->getAnnotationInfoList()
         );
     }
 
@@ -68,6 +73,9 @@ class TemplateAnnotationTest extends \PHPUnit\Framework\TestCase
      * テンプレート情報に誤りがある場合、例外が発生すること
      * @test
      * @dataProvider ngProvider
+     * @param $clazz
+     * @param $action
+     * @throws \Exception
      */
     public function ngAnnotationTest($clazz, $action)
     {
@@ -85,11 +93,11 @@ class TemplateAnnotationTest extends \PHPUnit\Framework\TestCase
             {
             }
         };
-        $annotaionReader = new AnnotationReader($instance);
-        $annotaionReader->setActionMethod($action);
-        $annotaionReader->readable(Template::class, $container);
-        $annotaionReader->readMethod();
-        $exception = $annotaionReader->getException();
+        $annotationReader = new AnnotationReader($instance);
+        $annotationReader->setActionMethod($action);
+        $annotationReader->readable(Template::class, $container);
+        $annotationReader->readMethod();
+        $exception = $annotationReader->getException();
 
         $this->assertNotNull($exception);
         $exception->raise();
