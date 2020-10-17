@@ -23,12 +23,12 @@ class Filter extends Annotation implements IMethods, IRead
     /**
      * @var array<string> 注入アノテーション情報
      */
-    private $injectAnnotation;
+    private array $injectAnnotation;
 
     /**
      * @var array<string> 読み込みアノテーション情報
      */
-    private $readAnnotation;
+    private array $readAnnotation;
 
     /**
      * {@inheritdoc}

@@ -13,7 +13,7 @@ class Required implements IValidate
     /**
      * {@inheritdoc}
      */
-    public function isValid($value, $rule)
+    public function isValid($value, string $rule)
     {
         return $value !== null && $value !== "";
     }

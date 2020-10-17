@@ -4,8 +4,8 @@ namespace WebStream\Annotation\Attributes;
 
 use WebStream\Annotation\Base\Annotation;
 use WebStream\Annotation\Base\IAnnotatable;
-use WebStream\Annotation\Base\IRead;
 use WebStream\Annotation\Base\IClass;
+use WebStream\Annotation\Base\IRead;
 use WebStream\Container\Container;
 use WebStream\Exception\Extend\DatabaseException;
 use WebStream\IO\File;
@@ -24,12 +24,12 @@ class Database extends Annotation implements IClass, IRead
     /**
      * @var array<string> 注入アノテーション情報
      */
-    private $injectAnnotation;
+    private array $injectAnnotation;
 
     /**
      * @var array<string> 読み込みアノテーション情報
      */
-    private $readAnnotation;
+    private array $readAnnotation;
 
     /**
      * {@inheritdoc}

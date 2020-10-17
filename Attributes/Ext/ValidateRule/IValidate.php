@@ -15,5 +15,5 @@ interface IValidate
      * @param mixed 検証する値
      * @param string 検証ルール
      */
-    public function isValid($value, $rule);
+    public function isValid($value, string $rule);
 }

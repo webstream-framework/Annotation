@@ -20,8 +20,9 @@ require_once dirname(__FILE__) . '/../Test/Fixtures/DatabaseFixture1.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/DatabaseFixture2.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/DatabaseDriverFixture.php';
 
-use WebStream\Annotation\Reader\AnnotationReader;
+use PHPUnit\Framework\TestCase;
 use WebStream\Annotation\Attributes\Database;
+use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Test\Providers\DatabaseAnnotationProvider;
 use WebStream\Container\Container;
 
@@ -31,7 +32,7 @@ use WebStream\Container\Container;
  * @since 2017/01/14
  * @version 0.7
  */
-class DatabaseAnnotationTest extends \PHPUnit\Framework\TestCase
+class DatabaseAnnotationTest extends TestCase
 {
     use DatabaseAnnotationProvider;
 
@@ -40,21 +41,25 @@ class DatabaseAnnotationTest extends \PHPUnit\Framework\TestCase
      * テンプレート情報を読み込めること
      * @test
      * @dataProvider okProvider
+     * @param $clazz
+     * @param $action
+     * @param $rootPath
+     * @param $result
+     * @throws \ReflectionException
      */
     public function okAnnotationTest($clazz, $action, $rootPath, $result)
     {
         $instance = new $clazz();
         $container = new Container();
         $container->rootPath = $rootPath;
-        $annotaionReader = new AnnotationReader($instance);
-        $annotaionReader->setActionMethod($action);
-        $annotaionReader->readable(Database::class, $container);
-        $annotaionReader->readClass();
-        $annotation = $annotaionReader->getAnnotationInfoList();
+        $annotationReader = new AnnotationReader($instance);
+        $annotationReader->setActionMethod($action);
+        $annotationReader->readable(Database::class, $container);
+        $annotationReader->readClass();
 
         $this->assertEquals(
             [Database::class => $result],
-            $annotaionReader->getAnnotationInfoList()
+            $annotationReader->getAnnotationInfoList()
         );
     }
 
@@ -63,18 +68,21 @@ class DatabaseAnnotationTest extends \PHPUnit\Framework\TestCase
      * データベースドライバが読み込めない場合、例外が発生すること
      * @test
      * @dataProvider ngProvider
+     * @param $clazz
+     * @param $action
+     * @throws \ReflectionException
+     * @throws \Exception
      */
     public function ngAnnotationTest($clazz, $action)
     {
         $this->expectException(\WebStream\Exception\Extend\DatabaseException::class);
         $instance = new $clazz();
         $container = new Container();
-        $annotaionReader = new AnnotationReader($instance);
-        $annotaionReader->setActionMethod($action);
-        $annotaionReader->readable(Database::class, $container);
-        $annotaionReader->readClass();
-        $annotation = $annotaionReader->getAnnotationInfoList();
-        $exception = $annotaionReader->getException();
+        $annotationReader = new AnnotationReader($instance);
+        $annotationReader->setActionMethod($action);
+        $annotationReader->readable(Database::class, $container);
+        $annotationReader->readClass();
+        $exception = $annotationReader->getException();
 
         $this->assertNotNull($exception);
         $exception->raise();

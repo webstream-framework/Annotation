@@ -23,12 +23,12 @@ class Template extends Annotation implements IMethod, IRead
     /**
      * @var array<string> 注入アノテーション情報
      */
-    private $injectAnnotation;
+    private array $injectAnnotation;
 
     /**
      * @var array<string> 読み込みアノテーション情報
      */
-    private $readAnnotation;
+    private array $readAnnotation;
 
     /**
      * {@inheritdoc}
@@ -96,7 +96,7 @@ class Template extends Annotation implements IMethod, IRead
                     throw new AnnotationException($errorMsg);
                 }
                 // 数値以外は不可
-                if (!preg_match("/^[1-9]{1}[0-9]{0,}$/", $cacheTime)) {
+                if (!preg_match("/^[1-9][0-9]*$/", $cacheTime)) {
                     $errorMsg = "Invalid argument of @Template attribute 'cacheTime' should not be integer.";
                     throw new AnnotationException($errorMsg);
                 }

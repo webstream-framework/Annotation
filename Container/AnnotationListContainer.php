@@ -14,10 +14,10 @@ use WebStream\Exception\Extend\CollectionException;
 class AnnotationListContainer extends AnnotationContainer implements \Iterator, \SeekableIterator, \ArrayAccess, \Countable
 {
     /** index */
-    private $index;
+    private int $index;
 
     /** カーソル位置 */
-    private $position;
+    private int $position;
 
     /**
      * constructor
@@ -41,9 +41,9 @@ class AnnotationListContainer extends AnnotationContainer implements \Iterator, 
     /**
      * 遅延評価の値を登録する
      * @param callable $callback クロージャ
-     * @param array    $context  クロージャの引数リスト
+     * @param array $context クロージャの引数リスト
      */
-    public function pushAsLazy($callback, $context = [])
+    public function pushAsLazy(callable $callback, $context = [])
     {
         $this->values[$this->index++] = new ValueProxy($callback, $context, true);
     }
@@ -61,6 +61,7 @@ class AnnotationListContainer extends AnnotationContainer implements \Iterator, 
      * Implements SeekableIterator#seek
      * カーソル位置を移動する
      * @param mixed オフセット
+     * @return mixed
      */
     public function seek($offset)
     {
@@ -122,6 +123,7 @@ class AnnotationListContainer extends AnnotationContainer implements \Iterator, 
     /**
      * Implements ArrayAccess#offsetExists
      * オフセットの位置に値が存在するかどうか返却する
+     * @param mixed $offset
      * @return boolean 値が存在するかどうか
      */
     public function offsetExists($offset)
@@ -132,6 +134,7 @@ class AnnotationListContainer extends AnnotationContainer implements \Iterator, 
     /**
      * Implements ArrayAccess#offsetGet
      * オフセットの位置の値を返却する
+     * @param mixed $offset
      * @return mixed 値
      */
     public function offsetGet($offset)

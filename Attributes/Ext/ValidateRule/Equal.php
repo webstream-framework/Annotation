@@ -13,7 +13,7 @@ class Equal implements IValidate
     /**
      * {@inheritdoc}
      */
-    public function isValid($value, $rule)
+    public function isValid($value, string $rule)
     {
         $isValid = false;
         if (preg_match('/^equal\[(.+)\]$/', $rule, $matches)) {

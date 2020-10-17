@@ -20,19 +20,9 @@ use WebStream\Exception\Extend\CsrfException;
 class CsrfProtection extends Annotation implements IMethod
 {
     /**
-     * @var array<string> 注入アノテーション情報
-     */
-    private $injectAnnotation;
-
-    /**
-     * @var array<string> 読み込みアノテーション情報
-     */
-    private $readAnnotation;
-
-    /**
      * @var array<string, string> CSRF定数定義
      */
-    private $csrfProtectionDefinitions = [
+    private array $csrfProtectionDefinitions = [
         'tokenKey' => '__CSRF_TOKEN__',
         'tokenHeader' => 'X-CSRF-Token'
     ];

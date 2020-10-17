@@ -21,7 +21,7 @@ abstract class Annotation
 
     /**
      * constructor
-     * @param array<string> アノテーションリスト
+     * @param array $annotations
      */
     public function __construct(array $annotations = [])
     {
@@ -31,7 +31,7 @@ abstract class Annotation
 
     /**
      * Injected event
-     * @param array<string> アノテーションコンテナ
+     * @param array $annotations
      */
     abstract public function onInject(array $annotations);
 }

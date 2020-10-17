@@ -2,7 +2,6 @@
 
 namespace WebStream\Annotation\Base;
 
-use WebStream\Annotation\Base\IAnnotatable;
 use WebStream\Container\Container;
 
 /**
@@ -16,8 +15,8 @@ interface IClass
     /**
      * クラスオブジェクトを注入
      * @param IAnnotatable 注入先インスタンス
-     * @param ReflectionClass リフレクションクラスオブジェクト
-     * @param Container 依存コンテナ
+     * @param \ReflectionClass リフレクションクラスオブジェクト
+     * @param Container $container
      */
     public function onClassInject(IAnnotatable $instance, \ReflectionClass $class, Container $container);
 }

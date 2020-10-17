@@ -15,10 +15,11 @@ require_once dirname(__FILE__) . '/../Attributes/CsrfProtection.php';
 require_once dirname(__FILE__) . '/../Test/Providers/CsrfProtectionAnnotationProvider.php';
 require_once dirname(__FILE__) . '/../Test/Fixtures/CsrfProtectionFixture1.php';
 
-use WebStream\Annotation\Reader\AnnotationReader;
+use PHPUnit\Framework\TestCase;
 use WebStream\Annotation\Attributes\CsrfProtection;
-use WebStream\Annotation\Test\Providers\CsrfProtectionAnnotationProvider;
+use WebStream\Annotation\Reader\AnnotationReader;
 use WebStream\Annotation\Test\Fixtures\DummySession;
+use WebStream\Annotation\Test\Providers\CsrfProtectionAnnotationProvider;
 use WebStream\Container\Container;
 
 /**
@@ -27,7 +28,7 @@ use WebStream\Container\Container;
  * @since 2017/01/11
  * @version 0.7
  */
-class CsrfProtectionAnnotationTest extends \PHPUnit\Framework\TestCase
+class CsrfProtectionAnnotationTest extends TestCase
 {
     use CsrfProtectionAnnotationProvider;
 
@@ -36,6 +37,10 @@ class CsrfProtectionAnnotationTest extends \PHPUnit\Framework\TestCase
      * CSRFエラーが起きないこと
      * @test
      * @dataProvider okProvider
+     * @param $clazz
+     * @param $requestMethod
+     * @param $post
+     * @param $header
      */
     public function okAnnotationTest($clazz, $requestMethod, $post, $header)
     {
@@ -60,6 +65,11 @@ class CsrfProtectionAnnotationTest extends \PHPUnit\Framework\TestCase
      * CSRFエラーが起きること
      * @test
      * @dataProvider ngProvider
+     * @param $clazz
+     * @param $requestMethod
+     * @param $post
+     * @param $header
+     * @throws \Exception
      */
     public function ngAnnotationTest($clazz, $requestMethod, $post, $header)
     {

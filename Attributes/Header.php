@@ -24,42 +24,42 @@ class Header extends Annotation implements IMethod, IRead
     /**
      * @var array<string> 注入アノテーション情報
      */
-    private $injectAnnotation;
+    private array $injectAnnotation;
 
     /**
      * @var array<string> 読み込みアノテーション情報
      */
-    private $readAnnotation;
+    private array $readAnnotation;
 
     /**
      * @var array<string, string> mimeタイプリスト
      */
-    private $contentTypeList = [
-        'txt'   => 'text/plain',
-        'jpeg'  => 'image/jpeg',
-        'jpg'   => 'image/jpeg',
-        'gif'   => 'image/gif',
-        'png'   => 'image/png',
-        'tiff'  => 'image/tiff',
-        'tif'   => 'image/tiff',
-        'bmp'   => 'image/bmp',
-        'ico'   => 'image/x-icon',
-        'svg'   => 'image/svg+xml',
-        'xml'   => 'application/xml',
-        'xsl'   => 'application/xml',
-        'rss'   => 'application/rss+xml',
-        'rdf'   => 'application/rdf+xml',
-        'atom'  => 'application/atom+xml',
-        'zip'   => 'application/zip',
-        'html'  => 'text/html',
-        'htm'   => 'text/html',
-        'css'   => 'text/css',
-        'csv'   => 'text/csv',
-        'js'    => 'text/javascript',
+    private array $contentTypeList = [
+        'txt' => 'text/plain',
+        'jpeg' => 'image/jpeg',
+        'jpg' => 'image/jpeg',
+        'gif' => 'image/gif',
+        'png' => 'image/png',
+        'tiff' => 'image/tiff',
+        'tif' => 'image/tiff',
+        'bmp' => 'image/bmp',
+        'ico' => 'image/x-icon',
+        'svg' => 'image/svg+xml',
+        'xml' => 'application/xml',
+        'xsl' => 'application/xml',
+        'rss' => 'application/rss+xml',
+        'rdf' => 'application/rdf+xml',
+        'atom' => 'application/atom+xml',
+        'zip' => 'application/zip',
+        'html' => 'text/html',
+        'htm' => 'text/html',
+        'css' => 'text/css',
+        'csv' => 'text/csv',
+        'js' => 'text/javascript',
         'jsonp' => 'text/javascript',
-        'json'  => 'application/json',
-        'pdf'   => 'application/pdf',
-        'file'  => 'application/octet-stream'
+        'json' => 'application/json',
+        'pdf' => 'application/pdf',
+        'file' => 'application/octet-stream'
     ];
 
     /**

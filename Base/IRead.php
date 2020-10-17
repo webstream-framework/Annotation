@@ -2,8 +2,6 @@
 
 namespace WebStream\Annotation\Base;
 
-use WebStream\Container\Container;
-
 /**
  * IMethod
  * @author Ryuichi TANAKA.

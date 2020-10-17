@@ -2,10 +2,10 @@
 
 namespace WebStream\Annotation\Attributes;
 
+use WebStream\Annotation\Attributes\Ext\ValidateRule\IValidate;
 use WebStream\Annotation\Base\Annotation;
 use WebStream\Annotation\Base\IAnnotatable;
 use WebStream\Annotation\Base\IMethod;
-use WebStream\Annotation\Attributes\Ext\ValidateRule\IValidate;
 use WebStream\ClassLoader\ClassLoader;
 use WebStream\Container\Container;
 use WebStream\Exception\Extend\AnnotationException;
@@ -26,7 +26,7 @@ class Validate extends Annotation implements IMethod
     /**
      * @var array<string> 注入アノテーション情報
      */
-    private $injectAnnotation;
+    private array $injectAnnotation;
 
     /**
      * {@inheritdoc}
@@ -51,7 +51,7 @@ class Validate extends Annotation implements IMethod
         }
 
         // パラメータの有無にかかわらずルール定義が間違っている場合はエラー
-        if (preg_match('/^([a-zA-Z]{1}[a-zA-Z0-9_]{1,})(?:$|\[(.+?)\]$)/', $rule, $matches)) {
+        if (preg_match('/^([a-zA-Z][a-zA-Z0-9_]+)(?:$|\[(.+?)\]$)/', $rule, $matches)) {
             $className = ucfirst(preg_replace_callback('/_([a-zA-Z])/', function ($matches) {
                 return ucfirst($matches[1]);
             }, $matches[1]));
